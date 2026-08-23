@@ -1,0 +1,13 @@
+#GOAL make a tiny program using a camera variable, A pan speed varaible, and a tilt speed variable
+#First lets assign Variables to each thing.
+Camera = 1
+Pan_Speed = 9
+Tilt_Speed = 5
+# Now lets print each one
+print(Camera)
+print(Pan_Speed)
+print(Tilt_Speed)
+#Now we just Created a tiny program! Be Exicited.
+# Now we will make a list that contains all three variables
+all = [Camera, Pan_Speed, Tilt_Speed]
+print(all)

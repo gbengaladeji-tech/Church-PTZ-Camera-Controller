@@ -1,0 +1,29 @@
+camera = 1
+#This Tells the system that camera Is repersented by 1
+#This can not be a letter like X, it has to be a number since X is not defined.
+print(camera)
+# When we run this code we get the otuput of 1, since we assigned Camera to the value of 1
+pan_speed = 5
+tilt_speed = 5
+print(pan_speed)
+print(tilt_speed)
+# So the Basic patteren is taht name = a value
+#For this project Camera, Pan_speed, tilt speed, directionw ill all just be variables
+number = 0x81
+print(number)
+# This is a hexadecimal number, Python does the math its like this lets put this in variables 0xYX and the formula is Y*16 + X, now  knnowing this we know when we have 0x81 its really just 8*16 + 1 which equals 129, this is why the output was 129.
+#To stop python from doing the math and just printing out  the hexadecimal number we need to do this
+print(hex(number))
+#This prints out the hexadecimal number as it is, so the output is 0x81
+
+#List, This is where we can group
+numbers = [1, 2, 3]
+print(numbers)
+#this prints out the list of numbers
+#but the cool think is this works with hex values as well 
+example = [0x81, 0x01, 0x06]
+print(example)
+#What we just did is create three bytes stored in order
+# Now we can reperesent VISCA cmmands like Pan/tilt using lists
+#so In summery a list is a container that keeps values in order
+
