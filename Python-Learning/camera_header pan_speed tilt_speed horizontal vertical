@@ -1,0 +1,43 @@
+# Goal is to make function recive
+#camera_headers
+#pan_speed
+#tilt_speed
+#horizontal
+#veritcal
+# and returns in this packet structure 8x 01 06 01 VV WW H V FF
+pan_speed = 5
+tilt_speed = 5
+def check_speed(speed):
+    if 1 <= speed <= 18:
+        return True
+    else:
+        return None
+
+pan_result = check_speed(pan_speed)
+tilt_result = check_speed(tilt_speed)
+print(pan_result)
+print(tilt_result)
+
+camera_header = 0x83
+horizontal = 0x01
+vertical = 0x03
+
+if pan_result == True and tilt_result == True:
+    packet = [
+camera_header,
+0x01,
+0x06,
+0x01,
+pan_speed,
+tilt_speed,
+horizontal,
+vertical,
+0xFF,
+    ]
+    for value in packet:
+     print(f"{value:02X}", end=" ")
+
+else:
+    print("Do not build packet")
+
+

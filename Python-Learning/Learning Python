@@ -26,4 +26,3 @@ print(example)
 #What we just did is create three bytes stored in order
 # Now we can reperesent VISCA cmmands like Pan/tilt using lists
 #so In summery a list is a container that keeps values in order
-
