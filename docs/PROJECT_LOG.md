@@ -163,6 +163,147 @@ After that I want to combine camera selection + movement + speed into one comple
 
 ---
 
+## 2026-08-25 — Keyboard test harness + controller state milestone
+
+**Phase:** Software simulation / controller logic validation
+
+### What I built
+
+I connected the little functions together so the program can now take normal controller-style choices and turn them into a full VISCA packet automatically.
+
+The program now keeps track of a selected camera and selected speed, accepts a movement command, translates everything, builds the packet, and prints it in the same hexadecimal style as the manual.
+
+I also added a simple keyboard test harness:
+
+- `1–4` changes the selected camera
+- `5` = slow
+- `6` = medium
+- `7` = fast
+- `W/A/S/D` = movement
+- `X` = stop
+- invalid keys are rejected instead of reusing the previous movement
+
+### Important design decision — the keyboard is NOT the final controller
+
+The keyboard controls are only here for testing the software while I do not have the physical control hardware connected yet.
+
+I want to keep this keyboard mode in the project because it is useful for debugging and testing packets, but the actual goal is still the physical church controller I am building with a joystick, camera-selection controls, speed controls, zoom, presets, and the rest of the operator interface.
+
+The useful part is that the VISCA/controller logic should not care whether the command originally came from a keyboard or from the physical controller. Later the Arduino/ESP32 input layer should provide the same kind of normal actions to the controller logic.
+
+So the keyboard is basically a temporary/test input layer, not the main product.
+
+### What I learned from calling functions
+
+I made the mistake of writing:
+
+`result = build_packet`
+
+and Python printed something like `<function build_packet at ...>`.
+
+That taught me the difference between referring to a function and actually calling it.
+
+`build_packet` = the function itself.
+
+`build_packet(...)` = run the function with inputs.
+
+I also finally understood exactly where the packet values come from. The values are not magically appearing inside `build_packet()`. They are returned from the other functions, saved into variables, then passed into the packet builder.
+
+### What I learned about controller state
+
+This made variables make way more sense.
+
+`selected_camera` can stay as Camera 3 until I press another camera button.
+
+`speed_mode` can stay as slow until I change it.
+
+Movement is different because it changes every time I give a movement command.
+
+This is the first time I really understood the idea of the program having a current state instead of recalculating/randomly setting everything every time.
+
+Also only one camera is selected because `selected_camera` is one variable. If it changes from `1` to `3`, Camera 1 is not still selected in software. The old value was replaced.
+
+### What I learned from `while True`
+
+Before this, the program ran one command and ended.
+
+I learned that `while True:` can keep the test controller alive so it keeps asking for commands.
+
+The important part was indentation. At first I put only the input inside the loop, which made everything underneath grey/unreachable because Python saw an infinite loop before the rest of the controller code.
+
+That helped me understand that indentation is not just formatting in Python. It decides what code actually belongs to the loop.
+
+### What I learned from `continue`
+
+`continue` means stop the current trip through the loop and go back to the top.
+
+This ended up being useful in two places:
+
+- after changing camera/speed, because selecting something should not also create a movement packet
+- after an invalid key, because an invalid input should not reach the packet builder
+
+### Bug I found with invalid keys
+
+Originally if I pressed `D`, movement became `right`.
+
+Then if I pressed a random key like `F`, none of the movement conditions changed the variable, so `movement` was STILL `right` and the program built another right packet.
+
+That is not something I would want on the actual controller.
+
+I added an `else` with `continue`, so invalid inputs now stop before a packet is built.
+
+This was a useful lesson in why input validation matters even if the packet builder itself is correct.
+
+### Another bug I caused — too many `input()` calls
+
+At one point I had a separate `key = input()` before Camera 1, another before Camera 2, another before Camera 3, etc.
+
+That meant one keypress could get consumed by one check and then the program immediately asked for another key before reaching the rest of the logic.
+
+I learned that I only need ONE input at the top of each loop, then all the camera/speed/movement checks inspect that same value.
+
+### Speed modes
+
+I added a translation function for the temporary speed modes:
+
+- slow → `0x04`
+- medium → `0x09`
+- fast → `0x12`
+
+These are starting simulation values, not final tuned physical-controller speeds.
+
+### Test evidence
+
+I tested:
+
+Camera 3 + slow + up:
+
+`83 01 06 01 04 04 03 01 FF`
+
+Camera 4 + fast + right:
+
+`84 01 06 01 12 12 02 03 FF`
+
+I also tested all four basic movement directions, stop, camera selection, speed selection, and random invalid keys.
+
+### Biggest thing I learned from this milestone
+
+The part that clicked for me is that the controller can be separated into layers.
+
+The keyboard is just telling the software what I want during testing. The important controller logic underneath is translating that request into the correct VISCA command.
+
+Later I should be able to replace the keyboard input with the physical joystick/buttons without throwing away the VISCA work I already made.
+
+That is much closer to how I want the final controller to be designed.
+
+### Next milestone
+
+Keep the keyboard test harness in the code for simulation/debugging, but do not spend the project turning it into a keyboard controller.
+
+The main direction stays the physical controller. The next software work should expand the real command layer and prepare clean inputs that the future Arduino/ESP32 + joystick/buttons can use.
+
+---
+
 ## Log entry template
 
 ### YYYY-MM-DD — Title
