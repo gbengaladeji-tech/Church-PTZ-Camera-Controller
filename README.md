@@ -68,6 +68,8 @@ The simulation stage lets the software, commands, presets, input handling, and s
 
 The command/control architecture has now been proven through keyboard testing, Xbox analog input, Arduino serial input, and automated tests. `transport.py` is still simulation-only and currently prints VISCA packets. The next software-facing integration step is real RS-422 transport after the correct electrical interface and pinout are verified.
 
+A full dated catch-up of the transition from the software milestone into hardware/product design is in [`docs/MILESTONE_2026-08-26.md`](docs/MILESTONE_2026-08-26.md).
+
 ## Planned Operator Controls
 
 - Pan/tilt joystick with twist zoom
@@ -86,6 +88,7 @@ The command/control architecture has now been proven through keyboard testing, X
 ├── README.md
 ├── docs/
 │   ├── PROJECT_LOG.md
+│   ├── MILESTONE_2026-08-26.md
 │   ├── REQUIREMENTS.md
 │   ├── SYSTEM_ARCHITECTURE.md
 │   ├── HARDWARE.md
@@ -123,5 +126,7 @@ The project also gives me a way to learn engineering through a real system with 
 ## Project Documentation
 
 The live hardware/tool checklist, budget table, software-layer explanation, CAD workflow, and documentation process are in [`docs/BUILD_AND_DOCUMENTATION_PLAN.md`](docs/BUILD_AND_DOCUMENTATION_PLAN.md).
+
+The current transition milestone is documented in [`docs/MILESTONE_2026-08-26.md`](docs/MILESTONE_2026-08-26.md).
 
 Major design decisions, failures, experiments, tests, changes, and milestones will continue to be recorded in `docs/PROJECT_LOG.md`. The goal is to preserve the engineering process, not just the final result.
