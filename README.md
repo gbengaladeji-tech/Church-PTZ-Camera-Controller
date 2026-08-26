@@ -1,7 +1,7 @@
 # Church PTZ Camera Controller
 
 **Project started:** 2026-08-23 02:55 UTC  
-**Status:** Planning and software prototyping  
+**Status:** Core software proven; moving into hardware integration  
 **Target:** A practical PTZ camera-control system for my church media team
 
 ## About This Project
@@ -62,18 +62,22 @@ Simulation first, then RS-422 hardware
 Datavideo PTR-10/T MARK II
 ```
 
-The simulation stage will let the software, commands, presets, input handling, and safety logic be tested before connecting anything to church production equipment.
+The simulation stage lets the software, commands, presets, input handling, and safety logic be tested before connecting anything to church production equipment.
+
+## Current Software Milestone
+
+The command/control architecture has now been proven through keyboard testing, Xbox analog input, Arduino serial input, and automated tests. `transport.py` is still simulation-only and currently prints VISCA packets. The next software-facing integration step is real RS-422 transport after the correct electrical interface and pinout are verified.
 
 ## Planned Operator Controls
 
-- Pan/tilt joystick
-- Zoom control
+- Pan/tilt joystick with twist zoom
 - Four camera-selection buttons
-- Named preset buttons such as Pulpit, Altar, Choir, and Wide
-- Movement-speed control
+- Preset banks
+- Movement-speed controls
 - Movement enable/disable control
-- Stop control
-- Status display in later versions
+- Dedicated Stop control
+- Status display
+- Later camera-specific focus/exposure/white-balance controls only after support is verified
 
 ## Repository Structure
 
@@ -85,14 +89,10 @@ The simulation stage will let the software, commands, presets, input handling, a
 │   ├── REQUIREMENTS.md
 │   ├── SYSTEM_ARCHITECTURE.md
 │   ├── HARDWARE.md
+│   ├── BUILD_AND_DOCUMENTATION_PLAN.md
 │   ├── SAFETY.md
 │   └── TESTING.md
 ├── software/
-│   ├── main.py
-│   └── ptz/
-│       ├── __init__.py
-│       ├── commands.py
-│       └── transport.py
 ├── firmware/
 ├── cad/
 ├── images/
@@ -101,18 +101,18 @@ The simulation stage will let the software, commands, presets, input handling, a
 
 ## Engineering Approach
 
-This project will be developed in small, testable stages:
+This project is being developed in small, testable stages:
 
 1. Document the existing system and requirements.
 2. Learn the required VISCA command structure.
 3. Build and test software command generation without real hardware.
 4. Build a simulated transport layer.
-5. Add physical input controls.
-6. Add an appropriate RS-422 interface.
-7. Perform a controlled test with one PTR-10/T.
-8. Add presets and multi-camera logic.
-9. Design the final operator interface and enclosure.
-10. Test reliability and document the final deployment.
+5. Prove multiple input methods including Arduino serial input.
+6. Finalize the physical BOM, tools, and modular CAD plan.
+7. Add and verify an appropriate RS-422 interface.
+8. Perform a controlled test with one PTR-10/T.
+9. Expand to the final physical control surface and multi-camera hardware.
+10. Test reliability, gather operator feedback, and document final deployment.
 
 ## Why I Am Building It
 
@@ -122,4 +122,6 @@ The project also gives me a way to learn engineering through a real system with 
 
 ## Project Documentation
 
-Major design decisions, failures, experiments, tests, changes, and milestones will be recorded in `docs/PROJECT_LOG.md`. The goal is to preserve the engineering process, not just the final result.
+The live hardware/tool checklist, budget table, software-layer explanation, CAD workflow, and documentation process are in [`docs/BUILD_AND_DOCUMENTATION_PLAN.md`](docs/BUILD_AND_DOCUMENTATION_PLAN.md).
+
+Major design decisions, failures, experiments, tests, changes, and milestones will continue to be recorded in `docs/PROJECT_LOG.md`. The goal is to preserve the engineering process, not just the final result.
