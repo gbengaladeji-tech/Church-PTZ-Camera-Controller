@@ -326,3 +326,40 @@ The main direction stays the physical controller. The next software work should 
 ### What I learned
 
 ### Next milestone
+
+---
+
+## 2026-09-22 — Hybrid embedded architecture selected
+
+**Phase:** Hardware architecture / purchasing / CAD transition
+
+### Major changes
+
+- Confirmed the Panasonic camera model as AG-CX350.
+- Replaced the earlier final Arduino + standalone-Linux-computer architecture with an embedded W5500-EVB-PICO / RP2040 direction.
+- Selected a hybrid topology with four dedicated RS-422 camera-control outputs plus one real wired Ethernet interface for future verified network-camera support.
+- Expanded the operator camera-selection concept from CAM 1-4 to CAM 1-10.
+- Assigned CAM 1-4 to physical RS-422 profiles and reserved CAM 5-10 for future network profiles.
+- Defined that unassigned CAM profiles must remain safe and must not transmit arbitrary commands.
+- Kept the existing Python/VISCA software as a reference/test harness rather than discarding the software milestone.
+- Set a working target of 2026-11-06 for a functional documented controller.
+
+### Current physical progress
+
+Ordered so far:
+
+- soldering equipment
+- heat-shrink tubing
+- wire cutter
+
+The main embedded electronics, joystick, display, controls, RS-422 hardware, power system, and detailed enclosure CAD are still in the build/purchasing phase.
+
+### Safety/design decision
+
+The four RS-422 camera-control connectors and the W5500 Ethernet connection must be treated as different interfaces even if similar connector shapes are used. The rear panel and documentation must make this obvious.
+
+The first real hardware-control test will still use one RS-422 channel and one approved PTR-10/T before expanding to all four channels.
+
+### Next milestone
+
+Freeze the first-round BOM, bring up the RP2040/W5500 platform, prove one RS-422 channel, and begin component-envelope/control-layout CAD.
