@@ -2,14 +2,22 @@
 
 ## Existing church hardware observed
 
+Confirmed equipment:
+
 - Datavideo RMC-180 MARK II controller
 - Datavideo PTR-10/T MARK II robotic pan/tilt heads
-- Panasonic professional 4K camcorders
-- Exact Panasonic camera model still needs to be confirmed
+- Panasonic AG-CX350 professional 4K camcorders
+- dedicated camera-control cabling associated with the PTR-10/T system
 
 ## Current hardware direction
 
-The project has moved past software-only prototyping. The final controller is intended to be a standalone physical console with a professional control layout and a modular 3D-printed enclosure.
+The final controller is now planned as a **standalone embedded hybrid controller** rather than the earlier Arduino + Linux-computer architecture.
+
+Primary controller platform:
+
+- W5500-EVB-PICO
+- RP2040 microcontroller
+- wired W5500 Ethernet interface
 
 Target architecture:
 
@@ -17,50 +25,109 @@ Target architecture:
 Physical controls
       |
       v
-Arduino / input electronics
+W5500-EVB-PICO / RP2040
       |
-      v
-Standalone Linux computer
+      +----> CAM/profile logic
       |
-      v
-Python controller software
+      +----> four dedicated full-duplex RS-422 channels
+      |          |
+      |          +----> existing Datavideo PTR-10/T MARK II systems
       |
-      v
-verified RS-422 interface
-      |
-      v
-Datavideo PTR-10/T
+      +----> one wired Ethernet connection
+                 |
+                 +----> future verified DVIP/IP camera-control support
 ```
 
-Planned physical features:
+## Camera-selection architecture
+
+The physical panel will expose **CAM 1-10**.
+
+Planned mapping:
+
+- CAM 1 -> RS-422 channel 1
+- CAM 2 -> RS-422 channel 2
+- CAM 3 -> RS-422 channel 3
+- CAM 4 -> RS-422 channel 4
+- CAM 5-10 -> future network-camera profiles
+
+CAM 5-10 must not transmit arbitrary traffic when no compatible profile is configured. An unassigned camera button should select an explicitly disabled/unassigned state or provide clear feedback without sending control commands.
+
+## RS-422 ports versus Ethernet
+
+- The four camera-control outputs are dedicated RS-422 links.
+- Their 8P8C/RJ45-style connectors must never be treated as normal Ethernet.
+- The W5500 Ethernet connection is the actual network port.
+- Physical labelling and rear-panel layout should make the difference obvious.
+
+## Planned physical controls
 
 - large 3-axis joystick for pan / tilt / twist zoom
-- four camera-selection controls initially
-- preset banks
-- Slow / Medium / Fast speed controls
-- dedicated Stop and Lock controls
-- status display
-- later focus / iris / white-balance controls only after exact camera support is verified
-- clean rear I/O panel
-- modular 3D-printed enclosure sized around the Bambu Lab A1 Mini build volume
-- serviceable assembly using machine screws and heat-set inserts
+- 10 camera-selection buttons
+- preset controls / preset banks
+- zoom and focus controls
+- speed controls
+- dedicated STOP / movement-disable control
+- lock / function controls
+- status/menu display
+- rotary encoders where useful for values or menus
+
+Camera-specific controls such as focus, iris, exposure, gain, and white balance should only be implemented after support through the installed control chain is verified.
+
+## Input expansion
+
+The design may use cascaded digital input-expansion logic / shift registers for the larger button count so the RP2040 does not dedicate one GPIO to every switch. Exact devices and PCB routing remain subject to final BOM verification.
 
 ## RS-422 development rule
 
-Start with **one verified RS-422 channel and one PTR-10/T**. Do not buy/build a four-channel output system before the first real camera-control link is proven.
+Even though the final design contains four physical RS-422 outputs, development should begin with **one channel and one PTR-10/T**.
 
-RJ45-shaped camera-control connectors are not assumed to be Ethernet. The exact electrical interface, pinout, and PTR-10/T mode must be verified before connection.
+Sequence:
 
-## Assembly tools and BOM
+1. verify protocol bytes
+2. verify the exact electrical interface
+3. verify connector pinout
+4. verify PTR-10/T control mode
+5. bench-test one channel
+6. perform one controlled low-speed real-camera test
+7. only then duplicate the proven circuit for the other three channels
 
-The full live checklist for workshop tools, wiring supplies, controller components, budget tracking, CAD workflow, and future missing items is maintained in:
+## Current purchased / ordered build supplies
 
-[`BUILD_AND_DOCUMENTATION_PLAN.md`](BUILD_AND_DOCUMENTATION_PLAN.md)
+As of 2026-09-22:
 
-That document currently includes the fact that the required assembly/tooling kit still needs to be acquired, including soldering equipment, multimeter, wire tools, hookup wire, connectors, perfboard, M3 hardware, cable management, rubber feet, labels, USB cables/adapters, and microSD tooling as needed.
+- soldering equipment — ordered
+- heat-shrink tubing — ordered
+- wire cutter — ordered
 
-## Purchase rule
+The following main controller items are not yet considered assembled/complete:
 
-Do not design the final enclosure from guessed product dimensions. Finalize high-impact components first, capture the real dimensions/datasheets, then build the CAD around those exact parts.
+- W5500-EVB-PICO controller board
+- final 3-axis joystick
+- final display
+- CAM 1-10 switches/keycaps
+- preset/function controls
+- four-channel RS-422 interface electronics
+- rear I/O connectors
+- power system
+- final PCB/protoboard implementation
+- enclosure hardware and final printed parts
 
-Do not connect experimental wiring to church production equipment until the software output, RS-422 interface, pinout, mode, and test procedure have been verified and permission has been obtained.
+## Enclosure direction
+
+The enclosure will be designed around measured real components and printed on a Bambu Lab A1 Mini.
+
+Likely modular sections:
+
+- camera/preset section
+- display/function section
+- joystick section
+- removable rear I/O panel
+- removable bottom/service panels
+
+Use serviceable assembly where possible: M3 machine screws, heat-set inserts, removable internal connectors, strain relief, labelled wiring, and replaceable external cables.
+
+## Target
+
+The current working target is a functional, documented controller by **2026-11-06**.
+
+That date is a project target, not a reason to bypass electrical verification or safe staged testing.
