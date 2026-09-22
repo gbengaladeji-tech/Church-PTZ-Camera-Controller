@@ -173,3 +173,18 @@ Likely modules include:
 The project documentation distinguishes between what has actually been tested, what is planned, what is assumed, and what still needs verification.
 
 Major design decisions, failures, measurements, tests, CAD revisions, wiring changes, and operator feedback will continue to be recorded so the engineering process is preserved, not just the final result.
+## Key Project Documents
+
+- [Current September architecture milestone](docs/MILESTONE_2026-09-22.md)
+- [System architecture](docs/SYSTEM_ARCHITECTURE.md)
+- [Hardware plan](docs/HARDWARE.md)
+- [Build and documentation plan](docs/BUILD_AND_DOCUMENTATION_PLAN.md)
+- [CAD and control-panel design](docs/CAD_AND_PANEL_DESIGN.md)
+- [Testing plan](docs/TESTING.md)
+- [Safety rules](docs/SAFETY.md)
+- [Sponsor project brief](docs/SPONSOR_PROJECT_BRIEF.md)
+- [Sponsorship and project support](docs/SPONSORSHIP_AND_SUPPORT.md)
+
+## Confirmed Project Support
+
+- **OSH Cut** — confirmed fabrication support for eligible project parts. Private sponsor codes and account-specific terms are intentionally not stored in the public repository.
