@@ -1,132 +1,175 @@
 # Church PTZ Camera Controller
 
-**Project started:** 2026-08-23 02:55 UTC  
-**Status:** Core software proven; moving into hardware integration  
-**Target:** A practical PTZ camera-control system for my church media team
+**Project started:** 2026-08-23
+**Current phase:** Hybrid embedded-hardware architecture selected; hardware acquisition, CAD, and real-interface validation underway
+**Target completion:** 2026-11-06
+**Goal:** Build a practical physical PTZ camera controller for real use by my church media team
 
 ## About This Project
 
-I am an aspiring engineering student with hands-on experience operating robotic camera systems for church productions. After spending time working with robotic camera controllers, I became interested in understanding how the systems work beyond simply operating them.
+I am a Grade 12 student in Brampton, Ontario with hands-on experience operating robotic camera systems for church productions. I am designing a PTZ controller around the real workflow of my church media team rather than building a classroom-only demo.
 
-I decided to design and build my own PTZ camera-control system around the real needs of my church's media team. The project combines embedded electronics, software, communication protocols, control systems, CAD, user-interface design, testing, and documentation into one system intended for real use.
+The project combines embedded electronics, camera-control protocols, firmware/software, PCB/interface design, CAD, user-interface design, testing, documentation, and operator feedback.
 
-The goal is not to make a simple copy of an existing commercial controller. I want to study the current workflow, identify where it can be made easier for volunteers, and develop a controller that is intuitive, reliable, maintainable, and expandable.
+The goal is not to copy the existing controller. The goal is to learn how the system works, preserve compatibility with the church's existing equipment, and create a controller that is intuitive, reliable, maintainable, and expandable.
 
 ## Existing Church System
 
-Initial investigation identified:
+Confirmed equipment:
 
 - Datavideo RMC-180 MARK II camera controller
 - Datavideo PTR-10/T MARK II robotic pan/tilt heads
-- Panasonic professional 4K camcorders
-- RS-422 communication on the robotic-head system
-- Sony VISCA-based control as a key protocol to investigate
+- Panasonic AG-CX350 professional 4K camcorders
+- dedicated RS-422 camera-control wiring on the existing robotic-head system
+- Sony VISCA-style command generation already explored in software
 
-The PTR-10/T hardware already performs the physical pan/tilt movement. This project will therefore focus on safely communicating with the existing system rather than attempting to directly replace or drive its motors.
+The PTR-10/T hardware already performs the physical movement. This project focuses on safely communicating with the existing system rather than driving the motors directly.
 
-## Version 1 Goals
+## Current Hardware Architecture
 
-V1 is intentionally limited. It is complete when the controller can reliably:
+The August PC-based architecture was useful for proving the software, but it is no longer the final hardware plan.
 
-1. Select between multiple cameras.
-2. Pan and tilt using a physical joystick.
-3. Control zoom.
-4. Adjust movement speed.
-5. Recall clearly named shot presets.
-6. Stop commanded movement safely.
-7. Provide obvious feedback about which camera is selected.
-8. Operate through a usable physical control surface.
-9. Communicate successfully with at least one church PTR-10/T system.
-10. Be documented well enough that another person can understand the design and testing process.
-
-## Demo Target
-
-The first prototype does not need to look like the final product. It should prove the control architecture:
+The current design is a standalone embedded hybrid controller:
 
 ```text
 Physical controls
-      |
-      v
-Arduino / input device
-      |
-      v
-Computer running control software
-      |
-      v
-VISCA command layer
-      |
-      v
-Simulation first, then RS-422 hardware
-      |
-      v
-Datavideo PTR-10/T MARK II
+  |
+  +-- 3-axis joystick
+  +-- CAM 1-10 buttons
+  +-- presets
+  +-- zoom / focus controls
+  +-- speed / function controls
+  +-- STOP / lock
+  +-- status display
+  |
+  v
+W5500-EVB-PICO
+(RP2040 + wired Ethernet)
+  |
+  +--> 4 x dedicated full-duplex RS-422 camera-control channels
+  |      |
+  |      +--> existing Datavideo PTR-10/T MARK II systems
+  |
+  +--> 1 x wired Ethernet connection
+         |
+         +--> future verified DVIP/IP camera-control support
 ```
 
-The simulation stage lets the software, commands, presets, input handling, and safety logic be tested before connecting anything to church production equipment.
+### Camera-selection model
 
-## Current Software Milestone
+- The physical user interface has **CAM 1-10** selection buttons.
+- **CAM 1-4** are intended to map to the four physical RS-422 camera-control channels.
+- **CAM 5-10** are reserved as logical profiles for future network-controlled cameras.
+- CAM 5-10 must remain safely unassigned until compatible network-camera support is implemented and verified.
+- The Ethernet port is a real network connection and is electrically/logically separate from the dedicated RS-422 camera-control ports.
 
-The command/control architecture has now been proven through keyboard testing, Xbox analog input, Arduino serial input, and automated tests. `transport.py` is still simulation-only and currently prints VISCA packets. The next software-facing integration step is real RS-422 transport after the correct electrical interface and pinout are verified.
+## What Has Already Been Proven
 
-A full dated catch-up of the transition from the software milestone into hardware/product design is in [`docs/MILESTONE_2026-08-26.md`](docs/MILESTONE_2026-08-26.md).
+The earlier Python software remains an important test/reference harness.
 
-## Planned Operator Controls
+Proven so far:
 
-- Pan/tilt joystick with twist zoom
-- Four camera-selection buttons
-- Preset banks
-- Movement-speed controls
-- Movement enable/disable control
-- Dedicated Stop control
-- Status display
-- Later camera-specific focus/exposure/white-balance controls only after support is verified
+- VISCA packet generation for camera addressing, pan/tilt, stop, zoom, speed modes, and presets
+- keyboard simulation
+- Xbox analog input
+- Arduino serial input
+- physical analog joystick input through Arduino into the software path
+- dead-zone and direction logic
+- controller-state handling
+- automated tests for important controller and packet behavior
 
-## Repository Structure
+Current simulated path:
 
 ```text
-.
-├── README.md
-├── docs/
-│   ├── PROJECT_LOG.md
-│   ├── MILESTONE_2026-08-26.md
-│   ├── REQUIREMENTS.md
-│   ├── SYSTEM_ARCHITECTURE.md
-│   ├── HARDWARE.md
-│   ├── BUILD_AND_DOCUMENTATION_PLAN.md
-│   ├── SAFETY.md
-│   └── TESTING.md
-├── software/
-├── firmware/
-├── cad/
-├── images/
-└── prototypes/
+Keyboard / Xbox / Arduino
+          |
+          v
+    controller.py
+          |
+          v
+       visca.py
+          |
+          v
+    transport.py
+          |
+          v
+ printed VISCA packet
 ```
 
-## Engineering Approach
+**Important:** real RS-422 transmission to a church PTR-10/T has not yet been completed. The electrical interface, connector pinout, device mode, and first controlled hardware test still need to be verified.
 
-This project is being developed in small, testable stages:
+## Current Build Status
 
-1. Document the existing system and requirements.
-2. Learn the required VISCA command structure.
-3. Build and test software command generation without real hardware.
-4. Build a simulated transport layer.
-5. Prove multiple input methods including Arduino serial input.
-6. Finalize the physical BOM, tools, and modular CAD plan.
-7. Add and verify an appropriate RS-422 interface.
-8. Perform a controlled test with one PTR-10/T.
-9. Expand to the final physical control surface and multi-camera hardware.
-10. Test reliability, gather operator feedback, and document final deployment.
+As of 2026-09-22:
 
-## Why I Am Building It
+- hybrid embedded architecture selected
+- Panasonic camera identified as AG-CX350
+- core software test harness completed
+- soldering equipment ordered
+- heat-shrink tubing ordered
+- wire cutter ordered
+- main controller electronics, final joystick, display, switches, and RS-422 hardware not yet assembled
+- detailed enclosure CAD still to be developed around the final purchased parts
+- real church-camera control test still pending
 
-This is intended to solve a real problem rather than exist only as a demonstration. Church media systems are often operated by volunteers with different levels of experience. Clear camera selection, named shot presets, intuitive physical controls, and strong feedback can make the system easier to learn and reduce mistakes during live production.
+The current dated architecture milestone is documented in [docs/MILESTONE_2026-09-22.md](docs/MILESTONE_2026-09-22.md).
 
-The project also gives me a way to learn engineering through a real system with real users, existing hardware constraints, a limited budget, and a requirement for reliability.
+## Version 1 Goals
 
-## Project Documentation
+V1 should:
 
-The live hardware/tool checklist, budget table, software-layer explanation, CAD workflow, and documentation process are in [`docs/BUILD_AND_DOCUMENTATION_PLAN.md`](docs/BUILD_AND_DOCUMENTATION_PLAN.md).
+1. Provide CAM 1-10 physical selection with safe profile handling.
+2. Control the existing church cameras through four dedicated RS-422 outputs.
+3. Pan and tilt with a physical joystick.
+4. Control supported zoom and focus functions.
+5. Adjust movement speed.
+6. Save/recall useful shot presets.
+7. Provide a dedicated STOP / movement-disable function.
+8. Clearly indicate the active camera/profile.
+9. Include one wired Ethernet port for future verified DVIP/IP expansion.
+10. Successfully complete a controlled real test with at least one PTR-10/T before multi-camera deployment.
+11. Be packaged in a durable, serviceable physical enclosure.
+12. Be documented well enough that another person can understand the design, testing, limitations, and revisions.
 
-The current transition milestone is documented in [`docs/MILESTONE_2026-08-26.md`](docs/MILESTONE_2026-08-26.md).
+## Physical Design Direction
 
-Major design decisions, failures, experiments, tests, changes, and milestones will continue to be recorded in `docs/PROJECT_LOG.md`. The goal is to preserve the engineering process, not just the final result.
+The current enclosure direction is a polished sloped desktop controller with:
+
+- large 3-axis pan/tilt/twist joystick
+- CAM 1-10 selection section
+- preset controls
+- zoom/focus controls
+- status/menu display
+- speed/function controls
+- dedicated STOP / lock control
+- rear I/O panel
+- modular/serviceable construction
+
+Because the enclosure will be printed on a Bambu Lab A1 Mini, it will be split into intentional modules rather than one oversized print.
+
+Likely modules include:
+
+- camera/preset section
+- display/function-control section
+- joystick section
+- removable rear I/O panel
+- removable bottom/service panels
+
+## Development Strategy
+
+1. Keep the existing Python software as a reference/test harness.
+2. Freeze the first hardware BOM and exact component dimensions.
+3. Build the embedded input/control hardware around the RP2040/W5500 platform.
+4. Validate one RS-422 channel electrically before using church equipment.
+5. Perform one controlled low-speed PTR-10/T test.
+6. Expand the proven electrical design to four RS-422 channels.
+7. Implement the CAM 1-10 profile layer.
+8. Keep CAM 5-10 disabled until future network-camera support is verified.
+9. Complete enclosure CAD around measured real parts.
+10. Assemble, test, collect operator feedback, revise, and document the final controller.
+
+## Engineering Standard
+
+The project documentation distinguishes between what has actually been tested, what is planned, what is assumed, and what still needs verification.
+
+Major design decisions, failures, measurements, tests, CAD revisions, wiring changes, and operator feedback will continue to be recorded so the engineering process is preserved, not just the final result.
