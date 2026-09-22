@@ -2,271 +2,263 @@
 
 ## Purpose
 
-This document is the practical build checklist for the Church PTZ Camera Controller. It records what the software already does, what hardware and workshop supplies are still needed, how the physical controller will be assembled, and how the project will be documented from this point forward.
+This is the live build checklist for the Church PTZ Camera Controller. It records the current architecture, what has already been proven, what still needs to be purchased/built, the CAD and testing sequence, and the evidence that should be captured.
 
-The visual target is the polished modular controller concept developed for this project: a sloped desktop enclosure, illuminated camera/preset controls, a status display, a large pan/tilt joystick with twist zoom, and a clean rear I/O panel. The enclosure will be designed as multiple printable modules so it can be produced on a Bambu Lab A1 Mini.
+**Target completion:** 2026-11-06.
 
 ## Current phase
 
-**Core software milestone: complete and tested in simulation / input testing.**
+The core software/reference milestone is complete. The project is now in **hardware acquisition + embedded integration + CAD**.
 
-The next engineering phase is hardware integration: finalizing the bill of materials, acquiring assembly tools, building the physical controls, adding a standalone computer, and then implementing and verifying the RS-422 transport to one PTR-10 before expanding to multiple camera ports.
+The final hardware direction is no longer the earlier Arduino + standalone Linux-computer architecture.
 
-## What the current software is
-
-The software is intentionally split into layers so each part can be tested separately.
-
-- `software/visca.py` — builds VISCA command packets for pan/tilt, zoom, camera addressing, speed modes, and presets.
-- `software/controller.py` — holds controller state such as selected camera and speed mode, and exposes high-level actions such as move, zoom, save preset, and recall preset.
-- `software/Keyboard_test.py` — keyboard test harness used to prove the control flow without physical hardware.
-- `software/Xbox_test.py` — analog game-controller test harness used to prove joystick direction, deadzone, and speed behavior.
-- `software/serial_input.py` — receives commands from the Arduino over USB serial and passes them into the controller layer.
-- `software/transport.py` — output boundary. It currently prints VISCA packets for simulation. This is the file that will later transmit the packet bytes through the verified RS-422 interface.
-- `software/test_controller.py` — automated assertions for controller state and expected VISCA packets.
-
-Current proven path:
-
-```text
-Keyboard / Xbox / Arduino input
-            |
-            v
-      controller.py
-            |
-            v
-         visca.py
-            |
-            v
-       transport.py
-            |
-            v
-   printed VISCA packet
-```
-
-Final target path:
+Current target:
 
 ```text
 Physical controls
       |
       v
-Arduino / input electronics
+W5500-EVB-PICO / RP2040
       |
-      v
-Standalone Linux computer
+      +--> input scanning + controller state
+      +--> command generation
+      +--> display / feedback
       |
-      v
-controller.py -> visca.py -> transport.py
+      +--> 4 x RS-422 channels --> existing PTR-10/T systems
       |
-      v
-verified RS-422 interface
-      |
-      v
-Datavideo PTR-10/T
+      +--> wired Ethernet --> future verified DVIP/IP profiles
 ```
 
-## Assembly tools and supplies I currently need
+## Existing proven software
 
-I currently do **not** have the following workshop/assembly items. Keep this as a live checklist and mark items only after they are actually acquired.
+The Python software remains the project's protocol/reference harness:
 
-### Soldering and hand tools
+- `software/visca.py` — VISCA command construction
+- `software/controller.py` — controller state/actions
+- `software/Keyboard_test.py` — keyboard simulation
+- `software/Xbox_test.py` — analog test harness
+- `software/serial_input.py` — Arduino serial input
+- `software/transport.py` — simulation-only transport boundary
+- `software/test_controller.py` — automated assertions
 
-- [ ] Soldering iron / temperature-controlled soldering station
-- [ ] Electronics solder
-- [ ] Wire strippers suitable for small electronics wire
-- [ ] Small flush cutters
-- [ ] Small Phillips screwdriver set
-- [ ] Digital multimeter
+This proves software behavior, **not** real RS-422 communication.
 
-### Wiring and electrical assembly
+## Confirmed church hardware
 
-- [ ] Heat-shrink tubing assortment
-- [ ] 22–26 AWG stranded hookup wire
-- [ ] JST connector kit and matching crimp terminals/housings
-- [ ] Dupont jumper leads for temporary testing
-- [ ] Solderable perfboard / prototyping board
-- [ ] Small zip ties and/or adhesive cable-management clips
+- Datavideo RMC-180 MARK II
+- Datavideo PTR-10/T MARK II
+- Panasonic AG-CX350 professional 4K camcorders
 
-### Mechanical assembly
+## Camera/profile design
 
-- [ ] M3 heat-set inserts
-- [ ] M3 machine screws in several useful lengths
-- [ ] Rubber feet for the finished enclosure
+- CAM 1-4: four physical RS-422 profiles
+- CAM 5-10: future network-camera profiles
+- unassigned profiles must remain safe/disabled
+- RS-422 camera ports and the real Ethernet port must remain clearly separated
 
-### Labels, cables, and computer setup
+## Ordered workshop items
 
-- [ ] Electrical labels / printed legends / label material for controls and internal wiring
-- [ ] Required USB cables/adapters for the standalone computer, Arduino, and RS-422 interface
-- [ ] microSD reader if the development computer cannot read the standalone computer's microSD card directly
+As of 2026-09-22:
 
-## Main controller parts still to finalize / purchase
+| Item | Status |
+|---|---|
+| Soldering equipment | Ordered |
+| Heat-shrink tubing | Ordered |
+| Wire cutter | Ordered |
 
-Do not consider the exact BOM frozen until the part dimensions, electrical interfaces, Canadian price, shipping, and compatibility have been checked.
+## Workshop / assembly items still to obtain or confirm
 
-| Category | Planned function | Exact part/model | Qty | Source | Price CAD | Purchased? | CAD model/dimensions captured? |
-|---|---|---|---:|---|---:|---|---|
-| 3-axis joystick | Pan / tilt / twist zoom | TBD after final verification | 1 | TBD | $ | [ ] | [ ] |
-| Standalone computer | Runs Python controller automatically | TBD | 1 | TBD | $ | [ ] | [ ] |
-| Display | Camera/status/menu feedback | TBD | 1 | TBD | $ | [ ] | [ ] |
-| Camera-select switches | CAM 1–4 | TBD | 4 | TBD | $ | [ ] | [ ] |
-| Preset switches | Preset banks | TBD | TBD | TBD | $ | [ ] | [ ] |
-| Function switches | Speed / stop / lock / camera functions | TBD | TBD | TBD | $ | [ ] | [ ] |
-| Rotary encoders | Menu / value adjustment | TBD | TBD | TBD | $ | [ ] | [ ] |
-| RS-422 interface | First real PTR-10 connection | TBD after pinout/interface verification | 1 first | TBD | $ | [ ] | [ ] |
-| RJ45/8P8C camera connectors | Rear camera-control ports; NOT Ethernet | 4 final | TBD | $ | [ ] | [ ] |
-| Tally connector | Rear tally input | TBD | 1 | TBD | $ | [ ] | [ ] |
-| DC input + switch | Low-voltage power input / power switch | TBD | 1 each | TBD | $ | [ ] | [ ] |
-| Power conversion | Safe internal low-voltage rails | TBD | TBD | TBD | $ | [ ] | [ ] |
-| Enclosure filament | Prototype + final printed modules | TBD | TBD | TBD | $ | [ ] | n/a |
-| Internal connectors | Serviceable removable wiring | TBD | TBD | TBD | $ | [ ] | [ ] |
+- electronics solder, if not included with the soldering equipment
+- small-wire stripper
+- small flush cutters if the ordered cutter is not suitable
+- small screwdriver set
+- digital multimeter
+- 22–26 AWG stranded hookup wire
+- temporary jumper leads
+- prototyping/perfboard supplies as needed
+- small connectors for serviceable internal wiring
+- cable-management supplies
+- M3 heat-set inserts
+- M3 machine screws
+- rubber feet
+- labels/legends
+- required USB/programming cables
 
-### Unexpected / forgotten parts
+## Main controller parts to purchase / finalize
 
-Leave this section open. Every time assembly requires something that was not in the original plan, add it here instead of hiding the mistake.
-
-| Date | Missing item discovered | Why it was needed | Cost | Lesson |
+| Category | Planned function | Current direction | Qty | Status |
 |---|---|---|---:|---|
-| | | | $ | |
-| | | | $ | |
-| | | | $ | |
-| | | | $ | |
+| Main controller | Embedded MCU + Ethernet | W5500-EVB-PICO / RP2040 | 1 | Not assembled |
+| RS-422 interface | Existing church-camera control | Four full-duplex channels; prove one first | 4 | Final parts/BOM to verify |
+| Camera-control connectors | Dedicated rear RS-422 ports | 8P8C/RJ45-style, clearly labelled NOT LAN | 4 | To finalize |
+| Joystick | Pan / tilt / twist zoom | 3-axis joystick | 1 | To finalize |
+| Camera buttons | CAM selection | CAM 1-10 | 10 | To finalize |
+| Preset controls | Shot presets | physical preset buttons/banks | TBD | To finalize |
+| Function controls | speed / stop / lock / focus / menu | physical switches/buttons | TBD | To finalize |
+| Input expansion | read larger button count | shift-register/input-expansion approach | TBD | To finalize |
+| Display | active CAM/status/menu | small status display | 1 | To finalize |
+| Power | stable internal rails | final rail/current design after BOM freeze | 1 system | To finalize |
+| Enclosure | durable control surface | modular A1 Mini printed enclosure | 1 | CAD pending |
+| Fasteners | serviceable construction | M3 screws + heat-set inserts | TBD | To purchase |
+| Internal wiring | removable/serviceable harnesses | connectors + labelled stranded wire | TBD | To purchase |
 
-## Budget tracking
+## PCB / prototyping strategy
 
-Target hardware/build budget: **approximately C$200–250** if possible.
+### Stage A — bench prototype
 
-| Category | Planned | Actual |
-|---|---:|---:|
-| Main electronics | $ | $ |
-| Controls / switches / joystick | $ | $ |
-| RS-422 / rear I/O | $ | $ |
-| Power | $ | $ |
-| Tools and assembly supplies | $ | $ |
-| 3D-printing / hardware | $ | $ |
-| Shipping / tax | $ | $ |
-| **Total** | **$** | **$** |
+- one RS-422 channel
+- minimum controls needed for testing
+- safe power arrangement
+- easy measurement/access
 
-The tool purchases should be tracked separately from the controller-only cost as well, because tools such as a multimeter and soldering iron will be reusable on future engineering projects.
+### Stage B — full electrical prototype
 
-## Physical design plan
+- four RS-422 channels
+- CAM 1-10 inputs
+- joystick
+- display
+- preset/function controls
+- Ethernet hardware active for normal networking tests
 
-The controller should be designed around the **real purchased components**, not guessed dimensions from product photos.
+### Stage C — organized/final implementation
 
-1. Finalize and purchase the high-impact parts first, especially the joystick, switches, display, rear connectors, and standalone computer.
-2. Measure each part and obtain a datasheet/drawing where possible.
-3. Create simple CAD reference models or bounding boxes for every component.
-4. Design the control-panel layout around hand comfort and operator workflow.
-5. Print small test plates before printing a complete enclosure.
-6. Split the enclosure into intentional modules that fit the A1 Mini build volume.
-7. Use removable rear I/O and service panels so future electronics changes do not require reprinting the entire controller.
-8. Use M3 heat-set inserts and machine screws for serviceable assembly rather than relying on glue.
-9. Prototype in inexpensive filament first; only print the final cosmetic enclosure after fit and function are proven.
+- custom PCB or structured prototyping solution
+- serviceable connectors
+- labelled wiring
+- enclosure mounting
+- strain relief
 
-## Documentation workflow from now on
+PCBWay may be useful for PCB fabrication/assembly once the design reaches a suitable stage.
 
-Documentation is part of the engineering work, not something to write at the end.
+## Fabrication support
+
+- OSH Cut has confirmed project fabrication support through a 50% discount arrangement for eligible orders through the end of 2026.
+- Private sponsor discount codes must never be stored in the public repository.
+- Unconfirmed sponsor discussions should not be presented as confirmed support.
+
+## CAD plan
+
+The physical design should follow this order:
+
+1. select the real joystick, display, buttons, connectors, and controller hardware
+2. record datasheet dimensions and measure parts
+3. create simple reference/component-envelope models
+4. sketch the operator layout
+5. create a flat control-panel mockup
+6. print small fit/ergonomic test pieces
+7. divide the enclosure into A1 Mini-compatible modules
+8. design internal mounts and cable paths
+9. design removable rear I/O and bottom/service panels
+10. only then create cosmetic/final surfaces
+
+Likely modules:
+
+- CAM/preset section
+- display/function section
+- joystick section
+- rear I/O panel
+- bottom/service panels
+
+See `docs/CAD_AND_PANEL_DESIGN.md` for the current physical design concept.
+
+## Target schedule to November 6
+
+This is an aggressive target and should never override safe electrical validation.
+
+### Sep 22 – Oct 1
+
+- freeze first-round BOM
+- order core controller parts
+- create component-envelope CAD models
+- sketch/control-panel layout
+
+### Oct 2 – Oct 10
+
+- bring up RP2040/W5500 development environment
+- build/test input scanning
+- prototype one RS-422 channel
+- validate electrical interface and pinout before church connection
+
+### Oct 11 – Oct 20
+
+- controlled one-camera test when approved
+- expand proven RS-422 design toward four channels
+- implement CAM 1-10 profile logic
+- integrate joystick/display/buttons
+
+### Oct 21 – Oct 28
+
+- complete main enclosure CAD
+- print fit-test sections
+- revise mounting and wiring
+- assemble full electrical prototype
+
+### Oct 29 – Nov 3
+
+- controlled multi-camera testing
+- reliability testing
+- operator feedback
+- fix hardware/firmware/UI issues
+
+### Nov 4 – Nov 6
+
+- final revisions
+- clean wiring/enclosure
+- final documentation
+- photos/video/demo
+- project retrospective
+
+## Testing gate before church equipment
+
+Do not connect experimental hardware to a PTR-10/T until:
+
+- command behavior is verified
+- exact RS-422 electrical interface is verified
+- exact connector pinout is verified
+- PTR-10/T control mode is verified
+- startup behavior is safe
+- STOP is available
+- first test is limited to one approved camera/head
+- test begins at low movement speed
+- permission has been obtained
+
+## Documentation workflow
 
 ### Obsidian = engineering notebook
 
-Use Obsidian for the human story and learning process. After every meaningful work session, record:
-
-- what I was trying to do
-- what I learned
-- decisions I made and why
-- mistakes / bugs / failed ideas
-- how I fixed them
-- measurements and observations
-- questions that are still unresolved
-- what I will do next
-
-The writing can be casual and first-person. The goal is to preserve my actual thinking while it is fresh.
+After meaningful work sessions, record the goal, what changed, what was learned, mistakes/failures, measurements, decisions and reasoning, unresolved questions, and the next step.
 
 ### GitHub = technical source of truth
 
-Use GitHub for things another engineer should be able to inspect:
+Keep source code/firmware, automated tests, architecture docs, BOM/hardware plan, CAD source/revisions, test procedures/results, wiring/interface documentation, and milestone documents.
 
-- source code
-- automated tests
-- firmware
-- technical architecture
-- BOM / hardware plan
-- CAD source files and revisions
-- test procedures and measured results
-- wiring/interface documentation
-- milestone commits
+### Evidence to capture
 
-Commit after meaningful milestones rather than after every tiny edit. Commit messages should describe what changed or what was proven.
+- clear prototype photos
+- CAD screenshots
+- wiring diagram revisions
+- part numbers/datasheets
+- measured dimensions
+- expected vs actual test results
+- failures/fixes
+- terminal/test output
+- short video when physical behavior first works
+- operator feedback
+- Git commit / CAD revision
 
-### Evidence to capture during hardware work
+## Open decisions
 
-For each major hardware milestone, save:
-
-- clear photos of the breadboard/prototype
-- screenshots or terminal output from tests
-- wiring diagram revision
-- CAD screenshots and exported design revision
-- exact part/model numbers
-- measured dimensions that affected the design
-- test result: expected vs actual
-- failures and the fix
-- short video when a physical feature first works
-- later, operator feedback from actual church use
-
-### Simple milestone documentation template
-
-```text
-Date:
-Milestone:
-Goal:
-
-What I changed:
-
-What I expected:
-
-What actually happened:
-
-Problems / bugs:
-
-How I fixed them:
-
-What I learned:
-
-Evidence saved:
-- photo:
-- video:
-- Git commit:
-- CAD revision:
-
-Next step:
-```
-
-## Before connecting church equipment
-
-Do not connect experimental wiring to the PTR-10/T or camera system until all of the following are true:
-
-- VISCA command bytes are verified.
-- The exact RS-422 electrical interface is verified.
-- The exact connector pinout is verified.
-- The PTR-10/T control mode is verified.
-- The first test is limited to one head/camera.
-- Initial movement is tested at a low speed.
-- Permission has been obtained to test on the church equipment.
-
-RJ45-shaped camera-control connectors must never be assumed to be normal Ethernet.
-
-## Open decisions / space for future needs
-
-Use this section whenever a new need appears. Do not force the project to stay identical to the original plan if testing shows a better solution.
-
-- [ ] Final exact joystick model
-- [ ] Final standalone computer
-- [ ] Final display
-- [ ] Final switch family and keycap/legend method
-- [ ] Final number of physical preset buttons / bank behavior
-- [ ] Final rear I/O architecture for four camera channels
-- [ ] Final tally implementation
-- [ ] Final power architecture
-- [ ] Final enclosure module split
-- [ ] Final cooling/ventilation requirement
-- [ ] Final cable strain-relief method
-- [ ] Final startup/autostart configuration
-- [ ] Exact Panasonic camera model and supported camera-specific controls
-- [ ] Additional tools/supplies discovered during assembly
+- [ ] final joystick model
+- [ ] final display model
+- [ ] final switch/keycap family
+- [ ] exact preset-button/bank layout
+- [ ] exact RS-422 transceiver implementation
+- [ ] final button-input expansion parts
+- [ ] final power architecture
+- [ ] final rear-I/O connector family
+- [ ] tally implementation
+- [ ] final enclosure module split/dimensions
+- [ ] cooling/ventilation need
+- [ ] cable strain-relief method
+- [ ] exact AG-CX350 camera-specific controls supported through the installed chain
+- [ ] network-camera/DVIP implementation for CAM 5-10
