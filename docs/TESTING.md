@@ -1,3 +1,5 @@
+> **15 October2026 audit:** Existing host assertion script and four unittest cases passed. This is simulation only. All hardware/coupon/camera/fault checks remain unperformed. See [current report](engineering/ENGINEERING_VERIFICATION_REPORT.pdf).
+
 # Testing Plan
 
 ## Stage 1 — Existing software/reference tests

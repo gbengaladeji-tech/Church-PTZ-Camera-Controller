@@ -1,122 +1,22 @@
-# System Architecture
+# Current system architecture
 
-## Current hybrid architecture
+This is a design specification, not implemented embedded firmware. [Authoritative decisions](engineering/FINAL_PROJECT_DECISIONS.md).
 
-The current design replaces the earlier host-computer final architecture with an embedded RP2040/W5500 controller while preserving the useful software lessons from the Python prototype.
-
-```text
-Operator
-  |
-  +-- 3-axis joystick
-  +-- CAM 1-10 buttons
-  +-- preset controls
-  +-- zoom / focus
-  +-- speed / function controls
-  +-- STOP / movement enable
-  +-- status display
-  |
-  v
-Input + state layer on RP2040
-  |
-  +-- debounce / input scanning
-  +-- selected CAM/profile
-  +-- movement state
-  +-- speed state
-  +-- preset state
-  +-- safety state
-  |
-  v
-Command layer
-  |
-  +-- existing VISCA command knowledge/test vectors
-  +-- device/profile-specific command generation
-  |
-  v
-Transport selection
-  |
-  +-------------------------------+
-  |                               |
-  v                               v
-RS-422 transport              Ethernet transport
-CAM 1-4                       future CAM 5-10
-  |                               |
-  v                               v
-4 x Datavideo PTR-10/T        future verified
-MARK II control links         DVIP/IP camera profiles
+```mermaid
+flowchart TD
+ C["34 keys, 6 encoders, joystick"] --> S["Input and profile state"]
+ S --> D["Nextion status and local menus"]
+ S --> V["Capability-gated commands and STOP"]
+ V --> R["4 dedicated full-duplex RS-422 links"]
+ R --> H["PTR heads and qualified lens path"]
+ V --> E["Ethernet profiles: uncommissioned"]
 ```
 
-## Relationship to the existing Python software
+- CAM1-4 map to physical ports. Profile/device address is distinct from port number. CAM5-10 send nothing until commissioned.
+- W55RP20 has19 externally usable GPIO. Six HC165 cover46 input bits; four HC595 provide32 output bits for27 LEDs. Driver and LED enable shareGP15; no routine PWM/blanking on it.
+- Ethernet SDK consumes one PIO state machine and two DMA channels. PIO/DMA numbers are static source-review estimates, not a build or coexistence pass.
+- Selected CAM LED means selection, not live-program tally. ACK means accepted; qualified arrival is required forREACHED. Timeout/disconnect isUNKNOWN.
+- Neutral, LOCK, selection changes and stale input need pan/tilt, zoom and focus STOP plus neutral re-arm. Remote stop on cable/controller power loss is unverified.
+- USB/external power, receiver idle, bus protection and ground-reference design remain incomplete. All3D mounting interfaces and physical commissioning remain on hold.
 
-The existing Python code is not discarded. It remains useful as:
-
-- a protocol-learning record
-- a known test harness
-- a source of expected VISCA packet vectors
-- a way to compare embedded output against previously tested behavior
-- evidence of the software development process
-
-The embedded firmware should reproduce only behavior that is understood and verified. The Python simulation must not be described as proof of real RS-422 communication.
-
-## Camera/profile abstraction
-
-The UI exposes CAM 1-10, but camera selection should be separated from transport details.
-
-A camera/profile record should eventually contain:
-
-- logical CAM number
-- enabled/disabled state
-- transport type
-- physical RS-422 channel or network endpoint
-- protocol/profile type
-- capability flags
-- preset behavior
-- connection/status information
-
-Initial mapping:
-
-- CAM 1-4: physical RS-422 profiles
-- CAM 5-10: unassigned/future network profiles
-
-Selecting an unassigned profile must not transmit arbitrary commands.
-
-## RS-422 transport
-
-The final hardware provides four dedicated full-duplex RS-422 channels. Development sequence:
-
-1. implement/verify one channel
-2. bench-test the electrical interface
-3. confirm pinout and PTR-10/T mode
-4. perform one controlled real test
-5. duplicate the proven design across the remaining three channels
-
-## Ethernet transport
-
-The W5500 provides one real wired Ethernet interface.
-
-Its purpose is future expansion to compatible network-controlled cameras, including DVIP/IP workflows only where protocol support is officially verified.
-
-The Ethernet implementation must not be presented as complete merely because the W5500 hardware exists.
-
-## Design rule
-
-Keep operator input, controller state, command generation, camera/profile capabilities, RS-422 transport, Ethernet/network transport, and user feedback/display as separate concerns.
-
-## State that should be tracked
-
-- selected CAM/profile
-- profile enabled/disabled state
-- transport type
-- movement enabled/disabled
-- pan speed
-- tilt speed
-- zoom/focus state
-- active preset
-- connection state
-- last command
-- error state
-
-## Fail-safe behavior
-
-On startup, reconnect, communication error, invalid input, unassigned CAM selection, or loss of input communication, the controller should prefer a stopped/non-moving state.
-
-A dedicated operator STOP function must remain available independently of normal movement controls.
+Existing Python packet builders/tests are preserved. Assertions and four unit tests passed in this documentation audit; they simulate commands and do not prove camera operation. [Full verification report](engineering/ENGINEERING_VERIFICATION_REPORT.pdf).

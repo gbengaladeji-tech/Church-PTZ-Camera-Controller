@@ -1,3 +1,5 @@
+> **HISTORICAL SNAPSHOT:** Current authority is [FINAL_PROJECT_DECISIONS.md](engineering/FINAL_PROJECT_DECISIONS.md) and the [Friday gate](engineering/FRIDAY_MANUFACTURING_GATE.md). Conflicting counts, parts and layouts below are superseded.
+
 # Build, Hardware, and Documentation Plan
 
 ## Purpose
