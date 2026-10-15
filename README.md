@@ -1,5 +1,9 @@
 # Church PTZ Camera Controller
 
+> **Current engineering status - 15 October 2026 UTC:** Preliminary CAD may start; fabrication remains **HOLD**. Fixed inventory: **34 keys, six encoders, at least 27 independently illuminated keys**, ServoCity605616 and APEM1KC candidate3FTH9871KC11162K09. Proposed panel400x230mm at10degrees is not owner-approved or physically verified. Main candidateW55RP20 sample approved; receipt unverified. The updated specification calls for46 scanned inputs and32 LED output bits, not the old12-LED circuit. No new PCB, firmware, enclosureCAD or camera test pass is claimed.
+>
+> Start with [final decisions](docs/engineering/FINAL_PROJECT_DECISIONS.md), [master BOM](docs/engineering/VERIFIED_MASTER_BOM.xlsx), [CAD dimensions](docs/engineering/ONSHAPE_CAD_MASTER_DIMENSIONS.xlsx), [Onshape build guide](docs/engineering/ONSHAPE_BUILD_GUIDE.md), [Friday release gate](docs/engineering/FRIDAY_MANUFACTURING_GATE.md) and [verification report](docs/engineering/ENGINEERING_VERIFICATION_REPORT.pdf). [Private project dashboard](https://church-ptz-engineering-desk.gbengaladeji.chatgpt.site). R5/R6.2-R6.7 remain historical decision evidence; the current handoff supersedes conflicting counts and assumptions.
+
 **Project started:** 2026-08-23
 **Current phase:** Hybrid embedded-hardware architecture selected; hardware acquisition, CAD, and real-interface validation underway
 **Target completion:** 2026-11-06
@@ -39,11 +43,11 @@ Physical controls
   +-- presets
   +-- zoom / focus controls
   +-- speed / function controls
-  +-- STOP / lock
+  +-- movement LOCK and safe STOP behavior
   +-- status display
   |
   v
-W5500-EVB-PICO
+W55RP20-EVB-PICO
 (RP2040 + wired Ethernet)
   |
   +--> 4 x dedicated full-duplex RS-422 camera-control channels
@@ -98,9 +102,9 @@ Keyboard / Xbox / Arduino
 
 **Important:** real RS-422 transmission to a church PTR-10/T has not yet been completed. The electrical interface, connector pinout, device mode, and first controlled hardware test still need to be verified.
 
-## Current Build Status
+## Historical September Build Status
 
-As of 2026-09-22:
+As of 2026-09-22 (historical snapshot, **not** the current status):
 
 - hybrid embedded architecture selected
 - Panasonic camera identified as AG-CX350
@@ -124,7 +128,7 @@ V1 should:
 4. Control supported zoom and focus functions.
 5. Adjust movement speed.
 6. Save/recall useful shot presets.
-7. Provide a dedicated STOP / movement-disable function.
+7. Provide a movement LOCK control and safe STOP behavior; do not add the previously rejected oversized dedicated STOP button.
 8. Clearly indicate the active camera/profile.
 9. Include one wired Ethernet port for future verified DVIP/IP expansion.
 10. Successfully complete a controlled real test with at least one PTR-10/T before multi-camera deployment.
@@ -141,11 +145,11 @@ The current enclosure direction is a polished sloped desktop controller with:
 - zoom/focus controls
 - status/menu display
 - speed/function controls
-- dedicated STOP / lock control
+- LOCK control, with movement STOP behavior in firmware
 - rear I/O panel
 - modular/serviceable construction
 
-Because the enclosure will be printed on a Bambu Lab A1 Mini, it will be split into intentional modules rather than one oversized print.
+The current intended manufactured enclosure is a **Protocase sheet-metal design**. The Bambu Lab A1 Mini can produce fit-check coupons, fixtures and trial guides, rather than defining the final exterior material.
 
 Likely modules include:
 
