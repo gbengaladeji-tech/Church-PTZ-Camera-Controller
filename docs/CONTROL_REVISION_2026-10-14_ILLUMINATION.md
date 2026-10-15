@@ -1,4 +1,4 @@
-# Control and Illumination Decision — 14 October 2026 (supersedes 27-key baseline)
+> **SUPERSEDED on 14 October (R6.4):** The owner reduced illuminated presets from 16 to **12**, giving **34 total pushbuttons** (10 CAM + 12 PRESET + 12 technical), not 38. See [the current R6.4 controls document](CONTROL_REVISION_2026-10-14_R6_4_PRESETS.md). The text below remains historical.\n\n# Control and Illumination Decision — 14 October 2026 (supersedes 27-key baseline)
 **Status:** new control layout requirement; neither the R6.2 control-key BOM nor control PCBs are frozen.
 
 ## Confirmed owner intent
