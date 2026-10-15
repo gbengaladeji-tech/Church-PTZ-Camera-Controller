@@ -1,3 +1,5 @@
+> **CONTROL REVISION NOTICE (14 Oct, evening):** The owner's latest reference-style requirement is **38 physical buttons**, including **10 integrated-illuminated CAM keys** and **16 physical presets**; the old 27-button/12-indicator totals and 25-as-all-installed assumption below are historical. Use [the updated control revision](../docs/CONTROL_REVISION_2026-10-14_ILLUMINATION.md) as the authority for control apertures and BOM. Final LED total, caps, and new control-PCB footprints are unresolved.
+
 # Friday 16 Oct — Enclosure CAD and Protocase Release Gate
 
 ## Goal
