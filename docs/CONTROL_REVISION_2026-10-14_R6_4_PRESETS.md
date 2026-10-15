@@ -1,4 +1,4 @@
-# R6.4 — 12 Illuminated Presets and Datavideo-Style Keys
+> **R6.5 ROUTING CLARIFICATION:** Groups of 3 are VISUAL ONLY; **all P1–P12 target whichever camera profile is selected**. Manufacturer documents 50 preset positions on PTR-10/T, versus 4 per camera on RMC-180's controller panel. FAST/MIDDLE/SLOW are illuminated. See [R6.5 routing decision](CONTROL_REVISION_2026-10-14_R6_5_PRESET_ROUTING.md).\n\n# R6.4 — 12 Illuminated Presets and Datavideo-Style Keys
 **Owner decision:** 14 October 2026. **Authority:** supersedes the 16-preset / 38-button estimate in R6.3.
 
 ## Frozen quantities
