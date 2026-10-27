@@ -28,6 +28,7 @@ Iris, autofocus and other camera functions must remain unavailable until the ins
 
 ## Start here
 
+- [Source register](docs/r68/Source_Register.csv) and [official references](docs/r68/Web_References.md)
 - [Independent build manual](docs/r68/Independent_Build_Manual.md)
 - [Electrical topology and unresolved decisions](docs/r68/Electrical_Design.md)
 - [BOM and acquisition status](docs/r68/BOM_and_Acquisition.csv)
