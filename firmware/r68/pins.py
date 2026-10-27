@@ -1,0 +1,7 @@
+# W55RP20-EVB-PICO Rev1 proposed harness. Bench qualification required.
+CAM_UART_PINS = ((0,1),(2,3),(6,7),(8,9))
+DISPLAY_TX, DISPLAY_RX = 4, 5
+CLOCK, LOAD_N, INPUT_DATA, LED_DATA, LED_LATCH = 10,11,12,13,14
+RS_ENABLE = 15
+ADC_PINS = (26,27,28)
+INPUT_BITS, LED_BITS = 48,32

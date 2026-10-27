@@ -1,0 +1,20 @@
+signal,gpio,purpose,qualification
+cam1_tx,GP0,external digital,PROPOSED; no hardware test
+cam1_rx,GP1,external digital,PROPOSED; no hardware test
+cam2_tx,GP2,external digital,PROPOSED; no hardware test
+cam2_rx,GP3,external digital,PROPOSED; no hardware test
+display_tx,GP4,external digital,PROPOSED; no hardware test
+display_rx,GP5,external digital,PROPOSED; no hardware test
+cam3_tx,GP6,external digital,PROPOSED; no hardware test
+cam3_rx,GP7,external digital,PROPOSED; no hardware test
+cam4_tx,GP8,external digital,PROPOSED; no hardware test
+cam4_rx,GP9,external digital,PROPOSED; no hardware test
+clock,GP10,external digital,PROPOSED; no hardware test
+load_n,GP11,external digital,PROPOSED; no hardware test
+input_data,GP12,external digital,PROPOSED; no hardware test
+led_data,GP13,external digital,PROPOSED; no hardware test
+led_latch,GP14,external digital,PROPOSED; no hardware test
+rs_enable,GP15,external digital,PROPOSED; no hardware test
+pan_adc,GP26,ADC joystick,PROPOSED; no hardware test
+tilt_adc,GP27,ADC joystick,PROPOSED; no hardware test
+zoom_adc,GP28,ADC joystick,PROPOSED; no hardware test

@@ -1,0 +1,33 @@
+physical_output_bit,board,HC595_nearest_first,output,signal,logic
+0,KEY-L,U7,Q0,CAM1,1=ON via sink
+1,KEY-L,U7,Q1,CAM2,1=ON via sink
+2,KEY-L,U7,Q2,CAM3,1=ON via sink
+3,KEY-L,U7,Q3,CAM4,1=ON via sink
+4,KEY-L,U7,Q4,CAM5,1=ON via sink
+5,KEY-L,U7,Q5,CAM6,1=ON via sink
+6,KEY-L,U7,Q6,CAM7,1=ON via sink
+7,KEY-L,U7,Q7,CAM8,1=ON via sink
+8,KEY-L,U8,Q0,CAM9,1=ON via sink
+9,KEY-L,U8,Q1,CAM10,1=ON via sink
+10,KEY-L,U8,Q2,SLOW,1=ON via sink
+11,KEY-L,U8,Q3,MIDDLE,1=ON via sink
+12,KEY-L,U8,Q4,FAST,1=ON via sink
+13,KEY-L,U8,Q5,UNUSED_OFF,0 always
+14,KEY-L,U8,Q6,UNUSED_OFF,0 always
+15,KEY-L,U8,Q7,UNUSED_OFF,0 always
+16,KEY-R,U9,Q0,PRESET1,1=ON via sink
+17,KEY-R,U9,Q1,PRESET2,1=ON via sink
+18,KEY-R,U9,Q2,PRESET3,1=ON via sink
+19,KEY-R,U9,Q3,PRESET4,1=ON via sink
+20,KEY-R,U9,Q4,PRESET5,1=ON via sink
+21,KEY-R,U9,Q5,PRESET6,1=ON via sink
+22,KEY-R,U9,Q6,PRESET7,1=ON via sink
+23,KEY-R,U9,Q7,PRESET8,1=ON via sink
+24,KEY-R,U10,Q0,PRESET9,1=ON via sink
+25,KEY-R,U10,Q1,PRESET10,1=ON via sink
+26,KEY-R,U10,Q2,PRESET11,1=ON via sink
+27,KEY-R,U10,Q3,PRESET12,1=ON via sink
+28,KEY-R,U10,Q4,AUTO_FOCUS,1=ON via sink
+29,KEY-R,U10,Q5,AUTO_IRIS,1=ON via sink
+30,KEY-R,U10,Q6,UNUSED_OFF,0 always
+31,KEY-R,U10,Q7,UNUSED_OFF,0 always

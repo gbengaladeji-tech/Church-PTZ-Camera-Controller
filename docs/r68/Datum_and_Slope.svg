@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="720" height="410" preserveAspectRatio="xMinYMin meet" viewBox="0 0 720 410" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="720" height="410"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-410)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="12" y="385" style="font-family: DejaVu; font-size: 19px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,770) scale(1,-1)">Panel datum and slope geometry</text>
+			<text x="12" y="362" style="font-family: DejaVu; font-size: 10px;fill: rgb(64%,39%,8%); stroke:none;" transform="translate(0,724) scale(1,-1)">Working reference only. Measure the original Onshape model.</text>
+			<polygon points="110 95, 563.0116 95, 563.0116 284.8782, 110 205" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,95%,96%); fill-rule: evenodd;"/>
+			<path d="M 110,205 L 563.011566,284.878162 Z" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.5;"/>
+			<polygon points="563.0116 284.8782, 557.3266 286.7967, 558.3256 281.131" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,49%,60%); fill-rule: evenodd;"/>
+			<text x="230" y="270" style="font-family: DejaVu; font-size: 12px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,540) scale(1,-1)">S = 230 mm along top at 10 deg</text>
+			<path d="M 110,73 L 563.011566,73 Z" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.5;"/>
+			<polygon points="563.0116 73, 557.7461 75.87655, 557.7461 70.12345" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,49%,60%); fill-rule: evenodd;"/>
+			<text x="260" y="48" style="font-family: DejaVu; font-size: 11px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,96) scale(1,-1)">D = 226.506 mm horizontal</text>
+			<text x="20" y="170" style="font-family: DejaVu; font-size: 11px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,340) scale(1,-1)">55 mm</text>
+			<text x="580" y="220" style="font-family: DejaVu; font-size: 11px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,440) scale(1,-1)">94.939 mm</text>
+			<circle cx="110" cy="205.0" r="4" style="stroke: rgb(64%,39%,8%); stroke-linecap: butt; stroke-width: 1; fill: rgb(64%,39%,8%); fill-rule: evenodd;"/>
+			<text x="85" y="225" style="font-family: DejaVu; font-size: 14px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,450) scale(1,-1)">A</text>
+			<text x="12" y="20" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,40) scale(1,-1)">X is across the 400 mm width; N is normal outward. Thickness candidate 1.6256 mm.</text>
+		</g>
+	</g>
+</svg>

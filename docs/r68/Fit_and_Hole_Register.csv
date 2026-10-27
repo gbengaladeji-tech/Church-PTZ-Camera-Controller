@@ -1,0 +1,13 @@
+part,reference_dimensions_mm,hole_or_viewport,status,evidence_needed
+Top,400x230 alongslope x1.6256,All actual control centres unknown,HOLD,OriginalOnshape exports/sample stack
+APEM,14.3square face;19.1height,14.7nominal square BEFORE coating adjustment,HOLD,Completekey+coatedcoupon+allowable panel thickness
+STORE,B3Fbody12nominal,Separatecap/adapteropeningunknown,HOLD,Realcap/stack
+Joystick,Flange53.594ref;onepitch32.512;holes2.54ref,Centralhole/secondpitchNOTknown,HOLD,Full605616drawing andsample
+Encoder,M7x0.75;6Dshaft;L20reference,Bushingclearance/antirotation/nut stack,HOLD,Bourns drawing+chosenknob
+Nextion,PCB95x47.6;holes3.2on88.6x41.2reference,Active69.60vs69.90conflict;notPCBwindow,HOLD,Actualownedrevision/glass/plug
+W55,PCB80x21;model85.35x21x16.6,RJ45/USBcuts frommatedplugandactualboard,HOLD,Receipt+realplug models
+CameraRJ,Body15.748x14.986x13.208reference,Historical16.129x13.208R0.254nominal,HOLD,Exactrevision/PCB datum/coatedsample
+DCjack,Tensility54-00151candidate,Hole/thread/finishedpanelthicknessunverified,HOLD,Currentdrawing+matchedplug
+Tophardware,8suggestedpositionsinmanual,Diameter/hardwareDNP,HOLD,Actualcontrolcollisions+Protocasehardware
+Feet,4;20mminsetcandidate,Diameter/lengthunknown,HOLD,Stockfootdrawing
+PCBmounts,MAIN+KEY-L+KEY-R,Nooutlinesorholesreleased,HOLD,Actualswitchstackandboardlayout

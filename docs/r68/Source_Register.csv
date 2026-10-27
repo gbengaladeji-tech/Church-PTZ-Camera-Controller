@@ -1,0 +1,45 @@
+source_id,kind,item,location_or_url,scope
+S01,LATEST OWNER BASELINE,Church_PTZ_Complete_Handoff_2026-10-27(3).md,supplied attachment,READ; no physical verification
+S02,EXECUTION REQUIREMENTS,Church_PTZ_Master_Execution_Prompt_2026-10-27(3).md,supplied attachment,READ
+S03,HISTORICAL R6.7,PTZ_SINGLE_SOURCE_OF_TRUTH_R6_7.md,recovered named file,READ; 34/6/LOCK superseded
+S04,HISTORICAL BOM,Church_PTZ_Master_BOM_Engineering_Release.xlsx,recovered named workbook,READ programmatically; old counts not current
+S05,HISTORICAL MECHANICS,Church_PTZ_Mechanical_Dimensions_and_Clearances(1).xlsx,recovered named workbook,READ; samples not proved
+S06,OUTREACH,Church_PTZ_Donation_and_Supplier_Outreach(1).xlsx,recovered named workbook,READ; some NEW labels superseded by Oct17 sent history
+S07,RISK,Church_PTZ_Engineering_Risk_Register.xlsx,recovered named workbook,READ
+S08,APEM EXACT ASSEMBLY,Manufacturer configuration and dimensions,https://www.apem.com/en-us/pcb-switches/mec-tactile-switches-and-accessories/1kc/3fth9871kc11162k09,WEB retrieved; quote-only page
+S09,JOYSTICK,ServoCity 605616,https://www.servocity.com/3-function-joystick/,WEB retrieved; partial mounting information
+S10,ENCODER,Bourns PEC11R datasheet,https://www.bourns.com/docs/product-datasheets/pec11r.pdf,WEB retrieved; match suffix and sample
+S11,MCU,W55RP20-EVB-PICO,https://docs.wiznet.io/Product/Chip/MCU/W55RP20/w55rp20-evb-pico,WEB retrieved; 19 external pins plus onboard reservations
+S12,TX,TI AM26LV31E datasheet,https://www.ti.com/lit/gpn/AM26LV31E,WEB retrieved; enable truth table
+S13,RX,TI AM26LV32E datasheet,https://www.ti.com/lit/gpn/AM26LV32E,WEB retrieved; open-input failsafe limits
+S14,INPUT SHIFT REGISTER,TI SN74HC165,https://www.ti.com/product/SN74HC165,WEB retrieved
+S15,OUTPUT SHIFT REGISTER,TI SN74HC595,https://www.ti.com/product/SN74HC595,WEB retrieved
+S16,REGULATOR,RECOM R-78K-0.5,https://recom-power.com/pdf/Innoline/R-78K-0.5.pdf,WEB retrieved; 3.3V version min4.5V; not a donation
+S17,ONSHAPE,Sheet metal model,https://cad.onshape.com/help/Content/PartStudio/sheet_metal_model.htm,WEB retrieved
+S18,ONSHAPE,Flat pattern export,https://cad.onshape.com/help/Content/PartStudio/sheet_metal_table.htm,WEB retrieved
+S19,ONSHAPE,Fastened mate,https://cad.onshape.com/help/Content/Assembly/fastened_mate.htm,WEB retrieved
+S20,ONSHAPE,Exports,https://cad.onshape.com/help/Content/File/exporting_files.htm,WEB retrieved
+S21,SHEET MATERIAL,Protocase aluminum tolerance,https://www.protocase.com/resources/tolerances/aluminum/,WEB retrieved; tooling quote still required
+S22,PRICE SNAPSHOT,Newark Canada 3FTH987 bare switch,https://canada.newark.com/multimec/3fth987/tactile-switch-spst-0-05a-24vdc/dp/82Y7202,"WEB retrieved 31 stock, CAD13.15 qty25+; not full 1KC"
+S23,PRICE SNAPSHOT,RobotShop Canada 605616,https://ca.robotshop.com/products/servocity-3-function-joystick,"WEB retrieved CAD45.70, 3 in stock; freight unknown"
+S24,PRICE SNAPSHOT,Mouser Canada PEC11R-4220F-N0024,https://www.mouser.ca/en/ProductDetail/Bourns/PEC11R-4220F-N0024,"WEB retrieved CAD2.85 each, 394 stock; cached inventory is not reservation"
+S25,TAX,CRA rates/place of supply,https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-place-supply.html,WEB retrieved Ontario13%; exact invoice treatment pending
+S26,CAMERA DOCS,Datavideo PTR-10 MARK II downloads,https://datavideo.com/global/product/PTR-10%20Mark%20II,WEB retrieved listing E7 manual/V2.7 protocol; installed version not measured
+S27,PRIOR PROTOCOL REVIEW,Church_PTZ_Camera_Protocol_Review.md,recovered R6.2 archive,READ; actual head qualification open
+S28,GITHUB,main tree and existing PR2,https://github.com/gbengaladeji-tech/Church-PTZ-Camera-Controller,API read; clone/fetched; main tests run
+S29,MAIL:WIZNET,Approved sample and tracking pending,Private project correspondence reviewed 27 October 2026; original email not published,FULL THREAD read
+S30,MAIL:PROTOCASE,CAD500 and shipping / preliminary DFM accepted,Private project correspondence reviewed 27 October 2026; original email not published,FULL MESSAGE/THREAD read; tax unanswered
+S31,MAIL:HAWK,CAD supplied; price/sample pending,Private project correspondence reviewed 27 October 2026; original email not published,FULL THREAD read
+S32,MAIL:RECOM,R-78K advice; load budget requested,Private project correspondence reviewed 27 October 2026; original email not published,FULL THREAD read
+S33,MAIL:PCBWAY,Upload completed orders; product numbers,Private project correspondence reviewed 27 October 2026; original email not published,FULL MESSAGE read incl HTML
+S34,MAIL:OSH CUT,50% eligible manufacturing discount and recognition,Private project correspondence reviewed 27 October 2026; original email not published,FULL THREAD read; private code omitted
+S35,MAIL:SERVOCITY,Discount declined; CAD request pending,Private project correspondence reviewed 27 October 2026; original email not published,FULL THREADS read
+S36,MAIL:APPLIED,38400 correction; independent head address1; no simultaneous IP/serial,Private project correspondence reviewed 27 October 2026; original email not published,FULL THREAD read; earlier STOP example was zoom-only
+S37,MAIL:TME,Customer account number needed for formal quote,Private project correspondence reviewed 27 October 2026; original email not published,FULL MESSAGE read
+S38,MAIL:CLIFF,16mm matching D-shaft knob option,Private project correspondence reviewed 27 October 2026; original email not published,FULL MESSAGE read; alternative only
+S39,NEW CONTACT,Rapid APEM tactile family and export contact,https://www.rapidonline.com/apem-tactile-short-travel-pushbutton-switches-521500 ; https://www.rapidonline.com/help/export,WEB retrieved; exports@rapidonline.com; exact SKU supply open
+S40,MCU AUTHENTIC CAD,W55 original model recovered from R6.2,https://docs.wiznet.io/img/products/3d-step-files/W55RP20-EVB-Pico_V100.step,223 solids; provenance JSON recovered; not physically measured
+S41,NEXTION,NX4024T032 family,https://nextion.ca/datasheets/nx4024t032_011/,Original page fetch failed; dimensions from recovered records only; not newly verified
+S42,MEAN WELL,Educational application,Gmail thread 1a141cb7a6f5fc92,THREAD retrieved; no award confirmed
+S43,BOUNCES,Failed routes,Private project correspondence reviewed 27 October 2026; original email not published,FULL MESSAGES read
+S44,APEM DISTRIBUTORS,Current official supplier list,https://www.apem.com/en-us/support/online-distributors,WEB retrieved; company history/group checks still required
