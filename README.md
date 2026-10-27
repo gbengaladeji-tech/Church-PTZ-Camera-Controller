@@ -1,190 +1,57 @@
 # Church PTZ Camera Controller
 
-**Project started:** 2026-08-23
-**Current phase:** Hybrid embedded-hardware architecture selected; hardware acquisition, CAD, and real-interface validation underway
-**Target completion:** 2026-11-06
-**Goal:** Build a practical physical PTZ camera controller for real use by my church media team
+A student-built physical controller for the volunteer media team at my church.
 
-## About This Project
+**Current working baseline: R6.8, 27 October 2026. Design and bench-development phase. Enclosure/PCB fabrication and complete-build spending remain on HOLD.**
 
-I am a Grade 12 student in Brampton, Ontario with hands-on experience operating robotic camera systems for church productions. I am designing a PTZ controller around the real workflow of my church media team rather than building a classroom-only demo.
+The earlier PC/Python work remains a reference harness. Real control of installed church heads has not been demonstrated by this revision.
 
-The project combines embedded electronics, camera-control protocols, firmware/software, PCB/interface design, CAD, user-interface design, testing, documentation, and operator feedback.
+## Current operator interface
 
-The goal is not to copy the existing controller. The goal is to learn how the system works, preserve compatibility with the church's existing equipment, and create a controller that is intuitive, reliable, maintainable, and expandable.
+- 28 pushbuttons: 10 CAM, 12 PRESET, 3 SPEED, AUTO FOCUS, AUTO IRIS and STORE.
+- 27 independently red-lit keys, with an unlit STORE acceptable.
+- 3 encoders: focus, iris and menu. No physical LOCK.
+- ServoCity 605616 spring-return pan/tilt/twist joystick.
+- Owned Nextion NX4024T032_011; actual revision, touch capability and viewport need measurement.
 
-## Existing Church System
+The owner preserves and finishes the existing Onshape layout. No current control-centre export or actual CAD screenshot was available for the R6.8 handoff. Generated reference diagrams are labelled as such and are not photos.
 
-Confirmed equipment:
+## Proposed hardware
 
-- Datavideo RMC-180 MARK II camera controller
-- Datavideo PTR-10/T MARK II robotic pan/tilt heads
-- Panasonic AG-CX350 professional 4K camcorders
-- dedicated RS-422 camera-control wiring on the existing robotic-head system
-- Sony VISCA-style command generation already explored in software
+W55RP20-EVB-PICO with four independent full-duplex RS-422 ports for CAM1-4. One sample is approved; dispatch/receipt is unconfirmed in the inspected evidence. Onboard Ethernet is for a later separately tested IP profile. CAM5-10 remain disabled. Existing equipment is Datavideo PTR-10/T MARK II with Panasonic AG-CX350 and the RMC-180 MARK II retained as fallback.
 
-The PTR-10/T hardware already performs the physical movement. This project focuses on safely communicating with the existing system rather than driving the motors directly.
+A proposed19-pin allocation shares the HC165/HC595 clock and dedicates GP15 to transmitter enable. It uses GP0-15 and GP26-28 only. Six input chips provide two local24-bit banks; four output chips feed27 transistor LED sinks. This is an engineering proposal, not a clean native KiCad release.
 
-## Current Hardware Architecture
+![Proposed wiring topology](docs/r68/Complete_Block_Diagram.svg)
 
-The August PC-based architecture was useful for proving the software, but it is no longer the final hardware plan.
+Iris, autofocus and other camera functions must remain unavailable until the installed control path proves support. A local lamp or ACK is not proof of camera state or preset arrival. Power loss cannot guarantee remote STOP.
 
-The current design is a standalone embedded hybrid controller:
+## Start here
 
-```text
-Physical controls
-  |
-  +-- 3-axis joystick
-  +-- CAM 1-10 buttons
-  +-- presets
-  +-- zoom / focus controls
-  +-- speed / function controls
-  +-- STOP / lock
-  +-- status display
-  |
-  v
-W5500-EVB-PICO
-(RP2040 + wired Ethernet)
-  |
-  +--> 4 x dedicated full-duplex RS-422 camera-control channels
-  |      |
-  |      +--> existing Datavideo PTR-10/T MARK II systems
-  |
-  +--> 1 x wired Ethernet connection
-         |
-         +--> future verified DVIP/IP camera-control support
+- [Independent build manual](docs/r68/Independent_Build_Manual.md)
+- [Electrical topology and unresolved decisions](docs/r68/Electrical_Design.md)
+- [BOM and acquisition status](docs/r68/BOM_and_Acquisition.csv)
+- [Fit and hole HOLD register](docs/r68/Fit_and_Hole_Register.csv)
+- [Acceptance and commissioning record](docs/r68/Acceptance_and_Commissioning.md)
+- [Support and acknowledgements](docs/SPONSORSHIP_AND_SUPPORT.md)
+
+## Validation
+
+Run from `software` with Python3.10 or newer:
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 test_controller.py
 ```
 
-### Camera-selection model
+R6.8 host result:17 unit tests passed, including13 new map/safety tests, and the legacy controller assertions passed. [Actual host output](docs/r68/Host_Test_Results.txt). New MicroPython files were syntax-checked only. They were not executed on W55 hardware.
 
-- The physical user interface has **CAM 1-10** selection buttons.
-- **CAM 1-4** are intended to map to the four physical RS-422 camera-control channels.
-- **CAM 5-10** are reserved as logical profiles for future network-controlled cameras.
-- CAM 5-10 must remain safely unassigned until compatible network-camera support is implemented and verified.
-- The Ethernet port is a real network connection and is electrically/logically separate from the dedicated RS-422 camera-control ports.
+`firmware/r68/diagnostic.py` holds camera-driver enable low. `pio_uart.py` is experimental loopback transport with missing production error handling. Neither is production controller firmware. Legacy Python helpers retain older camera-number/address behaviour; use the new per-port profile model for further development and qualify actual installed addresses.
 
-## What Has Already Been Proven
+## Release and funding
 
-The earlier Python software remains an important test/reference harness.
+No production CAD/PCB release. The old D1 reports recorded7 ERC and3 DRC findings; they were not cleared here. Samples, finish/cutout tests, final board layouts, native ERC/DRC, real-head tests and written manufacturer acceptance are required.
 
-Proven so far:
+The complete27-key APEM assembly quote is pending. A retail benchmark for27 bare3FTH987 switch bases alone is C$355.05 before caps, bezels, taxes and shipping, exceeding the C$250 personal cap. Do not label the build funded or the BOM finalized. Supported complete keys or an explicitly approved design change is needed.
 
-- VISCA packet generation for camera addressing, pan/tilt, stop, zoom, speed modes, and presets
-- keyboard simulation
-- Xbox analog input
-- Arduino serial input
-- physical analog joystick input through Arduino into the software path
-- dead-zone and direction logic
-- controller-state handling
-- automated tests for important controller and packet behavior
-
-Current simulated path:
-
-```text
-Keyboard / Xbox / Arduino
-          |
-          v
-    controller.py
-          |
-          v
-       visca.py
-          |
-          v
-    transport.py
-          |
-          v
- printed VISCA packet
-```
-
-**Important:** real RS-422 transmission to a church PTR-10/T has not yet been completed. The electrical interface, connector pinout, device mode, and first controlled hardware test still need to be verified.
-
-## Current Build Status
-
-As of 2026-09-22:
-
-- hybrid embedded architecture selected
-- Panasonic camera identified as AG-CX350
-- core software test harness completed
-- soldering equipment ordered
-- heat-shrink tubing ordered
-- wire cutter ordered
-- main controller electronics, final joystick, display, switches, and RS-422 hardware not yet assembled
-- detailed enclosure CAD still to be developed around the final purchased parts
-- real church-camera control test still pending
-
-The current dated architecture milestone is documented in [docs/MILESTONE_2026-09-22.md](docs/MILESTONE_2026-09-22.md).
-
-## Version 1 Goals
-
-V1 should:
-
-1. Provide CAM 1-10 physical selection with safe profile handling.
-2. Control the existing church cameras through four dedicated RS-422 outputs.
-3. Pan and tilt with a physical joystick.
-4. Control supported zoom and focus functions.
-5. Adjust movement speed.
-6. Save/recall useful shot presets.
-7. Provide a dedicated STOP / movement-disable function.
-8. Clearly indicate the active camera/profile.
-9. Include one wired Ethernet port for future verified DVIP/IP expansion.
-10. Successfully complete a controlled real test with at least one PTR-10/T before multi-camera deployment.
-11. Be packaged in a durable, serviceable physical enclosure.
-12. Be documented well enough that another person can understand the design, testing, limitations, and revisions.
-
-## Physical Design Direction
-
-The current enclosure direction is a polished sloped desktop controller with:
-
-- large 3-axis pan/tilt/twist joystick
-- CAM 1-10 selection section
-- preset controls
-- zoom/focus controls
-- status/menu display
-- speed/function controls
-- dedicated STOP / lock control
-- rear I/O panel
-- modular/serviceable construction
-
-Because the enclosure will be printed on a Bambu Lab A1 Mini, it will be split into intentional modules rather than one oversized print.
-
-Likely modules include:
-
-- camera/preset section
-- display/function-control section
-- joystick section
-- removable rear I/O panel
-- removable bottom/service panels
-
-## Development Strategy
-
-1. Keep the existing Python software as a reference/test harness.
-2. Freeze the first hardware BOM and exact component dimensions.
-3. Build the embedded input/control hardware around the RP2040/W5500 platform.
-4. Validate one RS-422 channel electrically before using church equipment.
-5. Perform one controlled low-speed PTR-10/T test.
-6. Expand the proven electrical design to four RS-422 channels.
-7. Implement the CAM 1-10 profile layer.
-8. Keep CAM 5-10 disabled until future network-camera support is verified.
-9. Complete enclosure CAD around measured real parts.
-10. Assemble, test, collect operator feedback, revise, and document the final controller.
-
-## Engineering Standard
-
-The project documentation distinguishes between what has actually been tested, what is planned, what is assumed, and what still needs verification.
-
-Major design decisions, failures, measurements, tests, CAD revisions, wiring changes, and operator feedback will continue to be recorded so the engineering process is preserved, not just the final result.
-## Key Project Documents
-
-- [Current September architecture milestone](docs/MILESTONE_2026-09-22.md)
-- [System architecture](docs/SYSTEM_ARCHITECTURE.md)
-- [Hardware plan](docs/HARDWARE.md)
-- [Build and documentation plan](docs/BUILD_AND_DOCUMENTATION_PLAN.md)
-- [CAD and control-panel design](docs/CAD_AND_PANEL_DESIGN.md)
-- [Testing plan](docs/TESTING.md)
-- [Safety rules](docs/SAFETY.md)
-- [Sponsor project brief](docs/SPONSOR_PROJECT_BRIEF.md)
-- [Sponsorship and project support](docs/SPONSORSHIP_AND_SUPPORT.md)
-
-## Confirmed Project Support
-
-- **OSH Cut** — confirmed fabrication support for eligible project parts. Private sponsor codes and account-specific terms are intentionally not stored in the public repository.
+Historical documents are retained under [docs/history](docs/history). The current R6.8 requirements supersede older34-button/6-encoder/LOCK and W5500-EVB-PICO definitions. Existing PR2 also needs reconciliation before any later merge.

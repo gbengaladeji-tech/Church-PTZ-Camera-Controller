@@ -1,0 +1,39 @@
+item,required_qty,exact_mpn_or_open_choice,function,status,owned_qty,unit_CAD_snapshot,supplier,source,purchase_blocker
+KEY01,27,APEM 3FTH9871KC11162K09,Complete red-lit keys,QUOTE PENDING,0,,Hawk / APEM,S08/S31,"Full switch+cap+bezel, LED rating, sample and coat-fit proof"
+KEY02,1,Omron B3F-4050 + cap/adapter TBD,STORE,OWNED CORE ONLY,25,0,GMA donation per owner,S01,Bare switch does not accept1KC; cap/stack unresolved
+MCU,1,W55RP20-EVB-PICO Rev1,MCU/Ethernet,APPROVED / NOT RECEIVED,0,0,WIZnet sample,S29,"US0 board confirmed; tracking, freight/import costs and revision open"
+SCREEN,1,NX4024T032_011 suffix verify,Display,OWNED,1,0,existing,S01/S41,"Viewport, suffix, touch and mated cable HOLD"
+JOY,1,ServoCity 605616,Joystick,CANDIDATE,0,45.70,RobotShop Canada,S09/S23,3 listed stock; full CAD/sample required; freight/HST extra
+ENC,3,Bourns PEC11R-4220F-N0024,Encoders,CANDIDATE,0,2.85,Mouser Canada,S10/S24,394 listed stock; D-shaft no push; physical fit HOLD
+KNOB,3,Adafruit5527 candidate / exact black knob TBD,Knobs,CANDIDATE,0,,supplier quote,S01/S38,20mm candidate height conflict; Cliff16mm alternative unapproved
+RJ,4,Amphenol RJHSE5080,Nonmagnetic camera jack,CANDIDATE,0,,supplier quote,S03/S05,PCB-mounted right-angle jack; authentic mating-view/finish fit HOLD
+TX,1,TI AM26LV31EIDR,Quad RS-422 driver,CANDIDATE,0,2.66,Mouser Canada,S12,SOIC16; retrieved price snapshot; full delivery unquoted
+RX,1,TI AM26LV32EIDR,Quad RS-422 receiver,CANDIDATE,0,,supplier quote,S13,SOIC16; threshold/bias/protection review
+IN,6,TI SN74HC165N,48 input slots,PROPOSED,0,,quote together,S14,PDIP16 at3.3V; 3 per key PCB; theoretical5 minimum
+OUT,4,TI SN74HC595N,32 LED logic slots,PROPOSED,0,,quote together,S15,PDIP16 at3.3V; 2 per key PCB; no LED direct drive
+SINK,27,AO3400A candidate,LED MOSFET sinks,CANDIDATE,0,,quote,S04,SOT23; verify exact pinout and 2.5/3.3V drive; existing sample request not award
+RLED,27,820ohm1% trial; exact MPN TBD,LED current limits,HOLD,0,,quote,calculation,0805 candidate; final from verified LED minVf/current/brightness
+RGATE,27,100ohm trial; exact MPN TBD,Gate series,HOLD,0,,quote,design proposal,0805; gate speed/ringing bench
+RPD,28,100kohm gates x27 +10kohm DE x1,Reset defaults,HOLD,0,,quote,design proposal,Split into exact line items/footprints before release
+RPULL,34,10kohm1%; array/separate TBD,Contact pull-ups,HOLD,0,,quote,calculation,Do not leave spare HC inputs floating
+REG,1,RECOM R-78K3.3-0.5 candidate,Aux3.3V,CANDIDATE,0,,RECOM/distributor,S16/S32,SIP3; min4.5V AFTER input losses; not donated
+BUF,1,5V-tolerant3.3V buffer MPN TBD,Nextion TX level conversion,HOLD,0,,quote,S01,Validate Vih/Vil/Ioff and unpowered behaviour
+ADC,3,1kohm+100nF trial each,Joystick filter,HOLD,0,,quote,design proposal,Calibrate acquisition/settling; disconnect detection unresolved
+PSU,1,Mean Well GST18U05-P1J,External5V3A adapter,APPLICATION PENDING,0,,MEAN WELL/distributor,S01/S42,"No award; lead, safety marking and mating connector verify"
+AC,1,Mains lead matched to adapter inlet,Adapter wall lead,HOLD,0,,quote,adapter requirement,May be sold separately; do not assume included
+DC,1,Tensility54-00151 candidate,Panel DC inlet,CANDIDATE,0,,Tensility,S01,Rated current/polarity/mating plug and finished thickness HOLD
+DCH,1,Matched plug/harness MPN TBD,DC cable,HOLD,0,,quote,S01,P1J mating dimensions not yet proved against inlet
+PWR,1,eFuse/reverse-polarity/backfeed circuit TBD,Input protection,HOLD,0,,quote,design requirement,"Fuse, OVP and inrush; do not substitute unqualified5V TVS"
+ESD,4 sets,RS-422 protector array MPN TBD,Port surge/ESD,HOLD,0,,quote,S12/S13,Common-mode/clamp/current/capacitance review
+TERM,4 fitted maximum at local RX,Termination R value/MPN TBD,RX termination,HOLD,0,,quote,S27,Cable/head inspection; DNP options; not duplicate head terminations
+BIAS,4 sets provision,Bias network values TBD,Idle state,HOLD,0,,quote,S13,560/100/560 historical proposal NOT released
+DECOUP,>=13 + module connectors,100nF ceramic exact MPN TBD,Logic local bypass,HOLD,0,,quote,design requirement,6input+4output+TX+RX+buffer minimum; regulator bulk per datasheet
+BULK,TBD,Bulk capacitors exact MPN TBD,Power decoupling,HOLD,0,,quote,design requirement,Voltage/ESR/inrush and rail transient tests
+HDR,2+2,20way2.54mm socket/header MPN TBD,W55 sockets,HOLD,0,,Samtec/Harwin existing cases,S06,Mating height/tails/pin size and mechanical envelope
+HAR,2 panel-board links + local leads,Keyed locking harness MPN TBD,Internal connectors,HOLD,0,,quote,harness schedule,Pinout below; current capacity and strain relief proof
+PCB,3,MAIN + KEY-L + KEY-R,PCB set,DESIGN NOT RELEASED,0,,PCBWay conditional,S33,No new native ERC/DRC; quote actual outlines/min fab quantity
+FEET,4,Stock screw-on rubber feet MPN TBD,Feet,HOLD,0,,Protocase stock suggestion,S30,Footprint/height/screw length/quote
+STAND,TBD,M3 standoffs lengths TBD,PCB supports,HOLD,0,,quote,real board stack needed,Initial4 per board estimate12; button loads may require more
+FASTEN,TBD,Captive panel fasteners stock MPN TBD,Panel hardware,HOLD,0,,Protocase,S30,8 top positions provision +rear; all collision/tool access HOLD
+CHASSIS,1 set,5052-H32 0.064in candidate,Enclosure/finish/legends,SUPPORT APPROVED; QUOTE OPEN,0,,Protocase,S30,"CAD500 eligible support, shipping included; tax and excess unknown"
+LABEL,1 set,Stock graphics method TBD,Legends,HOLD,0,,Protocase,S30,Camera RS422 versus Ethernet; no unvalidated operational claim

@@ -1,0 +1,38 @@
+COMMAND: python3 -m unittest discover -s tests -v
+EXIT: 0
+test_camera_range_is_checked (test_commands.PTZCommandTests.test_camera_range_is_checked) ... ok
+test_preset_requires_name (test_commands.PTZCommandTests.test_preset_requires_name) ... ok
+test_speed_range_is_checked (test_commands.PTZCommandTests.test_speed_range_is_checked) ... ok
+test_valid_command (test_commands.PTZCommandTests.test_valid_command) ... ok
+test_backwards_clock_fault (test_r68_safety.R68Tests.test_backwards_clock_fault) ... ok
+test_bad_axis_and_no_automatic_rearm (test_r68_safety.R68Tests.test_bad_axis_and_no_automatic_rearm) ... ok
+test_change_camera_stops_old_port_and_disarms (test_r68_safety.R68Tests.test_change_camera_stops_old_port_and_disarms) ... ok
+test_counts_and_gpio_fit (test_r68_safety.R68Tests.test_counts_and_gpio_fit) ... ok
+test_independent_port_uses_device_address_one (test_r68_safety.R68Tests.test_independent_port_uses_device_address_one) ... ok
+test_input_chain_first_sample_is_nearest_h (test_r68_safety.R68Tests.test_input_chain_first_sample_is_nearest_h) ... ok
+test_led_serial_order_and_unassigned_bits_zero (test_r68_safety.R68Tests.test_led_serial_order_and_unassigned_bits_zero) ... ok
+test_no_boot_motion_or_unqualified_arming (test_r68_safety.R68Tests.test_no_boot_motion_or_unqualified_arming) ... ok
+test_preset_bounds_and_mapping (test_r68_safety.R68Tests.test_preset_bounds_and_mapping) ... ok
+test_quadrature_bounce_cancels_and_invalid_jump_resets (test_r68_safety.R68Tests.test_quadrature_bounce_cancels_and_invalid_jump_resets) ... ok
+test_rearm_rejects_backdated_observation (test_r68_safety.R68Tests.test_rearm_rejects_backdated_observation) ... ok
+test_reserved_camera_does_not_change_selection (test_r68_safety.R68Tests.test_reserved_camera_does_not_change_selection) ... ok
+test_stale_data_stops_all_motion_domains (test_r68_safety.R68Tests.test_stale_data_stops_all_motion_domains) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.001s
+
+OK
+
+
+COMMAND: python3 test_controller.py
+EXIT: 0
+ALL CONTROLLER TESTS PASSED
+
+
+COMMAND: python3 -m compileall -q software/ptz/safety.py software/tests/test_r68_safety.py firmware/r68
+EXIT: 0
+
+
+COMMAND: python3 budget_check.py quote_input.json
+EXIT: 2
+HOLD: unquoted categories: complete_keys_and_STORE, joystick, encoders_and_knobs, interface_and_logic, power_supply_and_lead, connectors_protection_passives, PCB_fabrication_assembly, hardware_harnesses, enclosure_owner_balance_after_support, all_shipping, all_tax_duty_brokerage_FX

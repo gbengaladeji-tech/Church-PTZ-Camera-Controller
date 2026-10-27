@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="720" height="490" preserveAspectRatio="xMinYMin meet" viewBox="0 0 720 490" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="720" height="490"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-490)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="12" y="465" style="font-family: DejaVu; font-size: 19px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,930) scale(1,-1)">Physical stack and service access</text>
+			<text x="12" y="442" style="font-family: DejaVu; font-size: 10px;fill: rgb(64%,39%,8%); stroke:none;" transform="translate(0,884) scale(1,-1)">Schematic section, not the unavailable owner control layout.</text>
+			<polygon points="100 370, 540 425, 610 400, 170 345" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(92%,95%,96%); fill-rule: evenodd;"/>
+			<text x="180" y="375" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,750) scale(1,-1)">Cap / knob / joystick above panel</text>
+			<polygon points="100 290, 540 345, 610 320, 170 265" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(92%,95%,96%); fill-rule: evenodd;"/>
+			<text x="180" y="295" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,590) scale(1,-1)">Removable sloped control top</text>
+			<polygon points="100 210, 540 265, 610 240, 170 185" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(92%,95%,96%); fill-rule: evenodd;"/>
+			<text x="180" y="215" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,430) scale(1,-1)">Supported key PCB + display / joystick bodies</text>
+			<polygon points="100 125, 540 180, 610 155, 170 100" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(92%,95%,96%); fill-rule: evenodd;"/>
+			<text x="180" y="130" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,260) scale(1,-1)">MAIN board + protected wiring</text>
+			<polygon points="100 60, 540 115, 610 90, 170 35" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.2; fill: rgb(92%,95%,96%); fill-rule: evenodd;"/>
+			<text x="180" y="65" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,130) scale(1,-1)">Chassis bottom + rubber feet</text>
+			<path d="M 75,315 L 75,380 Z" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1.5;"/>
+			<polygon points="75 380, 72.12345 374.7345, 77.87655 374.7345" style="stroke: rgb(9%,49%,60%); stroke-linecap: butt; stroke-width: 1; fill: rgb(9%,49%,60%); fill-rule: evenodd;"/>
+			<text x="12" y="286" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,572) scale(1,-1)">Lift top only</text>
+			<text x="12" y="270" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,540) scale(1,-1)">after unplugging</text>
+			<text x="12" y="254" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,508) scale(1,-1)">service harness.</text>
+			<text x="405" y="420" style="font-family: DejaVu; font-size: 11px;fill: rgb(65%,23%,19%); stroke:none;" transform="translate(0,840) scale(1,-1)">Real cap-to-PCB stack: HOLD</text>
+			<text x="435" y="178" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,356) scale(1,-1)">Rear I/O plate removes separately</text>
+			<text x="435" y="160" style="font-family: DejaVu; font-size: 10px;fill: rgb(8%,16%,25%); stroke:none;" transform="translate(0,320) scale(1,-1)">Keyed plugs + strain anchors</text>
+			<text x="12" y="18" style="font-family: DejaVu; font-size: 10px;fill: rgb(65%,23%,19%); stroke:none;" transform="translate(0,36) scale(1,-1)">Use real standoffs and fasteners. No final support/clearance is proved by this diagram.</text>
+		</g>
+	</g>
+</svg>
