@@ -24,6 +24,11 @@ syntax errors; later snapshots correct them.
 The original VS Code history was read only. No file in it was edited, moved, or
 deleted.
 
+`git diff --check main...HEAD` reports trailing spaces on three speed-return
+lines in this recovered file. They are original historical bytes and are kept
+intentionally so the recovery hash remains exact; all newly written files pass
+the whitespace check when this preserved artifact is excluded.
+
 ## What the prototype actually does
 
 The prototype is a keyboard-driven packet generator. It remembers one of four
