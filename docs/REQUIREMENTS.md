@@ -1,49 +1,85 @@
-# V1 Requirements
+# Software and system requirements
 
-## Purpose
+Status words used here:
 
-Create a low-cost operator controller that can eventually control the church's existing Datavideo PTR-10/T MARK II robotic camera system while being easier for volunteers to understand and operate.
+- **implemented** means host-testable code exists;
+- **proposed** means the architecture supports it but hardware is not frozen;
+- **blocked** means evidence or hardware validation is required;
+- **unsupported** means firmware must visibly reject the function for that
+  camera route.
 
-## Functional requirements
+## Operator behavior
 
-- Select Camera 1–4.
-- Pan left/right.
-- Tilt up/down.
-- Stop pan/tilt movement.
-- Control zoom in/out when supported by the installed camera-control chain.
-- Adjust movement speed.
-- Recall named presets.
-- Clearly show the active camera.
-- Start in a safe non-moving state.
-- Provide an operator-accessible stop function.
+1. The controller starts non-moving and ignores a displaced joystick until all
+   three axes are valid and neutral.
+2. Exactly one logical camera is selected at a time.
+3. CAM 1–4 route to configurable physical transports. CAM 5–10 are disabled by
+   default because the ten-to-four routing decision is unresolved.
+4. Joystick X, Y, and twist request pan, tilt, and zoom with configurable
+   calibration, filtering, dead zones, curves, limits, and direction reversal.
+5. Returning an axis to its dead zone sends the appropriate stop without waiting
+   for the smoothing filter to decay.
+6. Slow, medium, and fast profiles limit pan, tilt, and zoom independently.
+7. Preset buttons recall positions; holding STORE while pressing a preset stores
+   that position only when the selected route declares preset support.
+8. The focus encoder selects manual focus when necessary and sends a short
+   near/far pulse followed by focus stop, only on a verified capable route.
+9. Iris and white-balance commands remain unavailable unless the selected
+   camera profile explicitly enables them.
+10. AUTO IRIS remains unsupported until its exact target behavior is defined and
+    verified. The UI must show unavailable rather than fake success.
 
-## User requirements
+## Inputs and output
 
-- Main controls must be understandable without reading a long manual.
-- Camera selection must be obvious before movement begins.
-- Common church shots should use names rather than only preset numbers.
-- Frequently used controls should be physical rather than hidden in menus.
-- Advanced settings should not clutter normal operation.
+- Debounce all 28 switches and produce separate press/release events.
+- Decode direction from all three PEC11R quadrature encoders without applying a
+  button-style debounce that discards valid edges.
+- Define and test a complete shift-register bit order before PCB release.
+- Process simultaneous actions deterministically. STORE plus PRESET is the
+  defined store gesture; other buttons remain independent.
+- Drive LEDs to a known-off state before enabling outputs.
+- Use defined Nextion component IDs from a future HMI interface contract; do not
+  scatter raw screen IDs through controller logic.
 
-## Engineering constraints
+## Communications and safety
 
-- Low prototype budget.
-- Reuse existing development hardware where practical.
-- Do not modify or open church production equipment during early development.
-- Real-hardware testing must be controlled and reversible.
-- RS-422 wiring and electrical levels must be verified before connection.
-- The design must not assume an RJ-45 connector means Ethernet.
+- Keep protocol encoding separate from physical UART/RS-422 transport.
+- Validate all command inputs before packet construction.
+- Track transport acceptance, VISCA ACK/completion/error, and response timeout.
+- Stop active pan/tilt and zoom after 250 ms without fresh joystick input by
+  default. This value is configurable and must be tuned during bench testing.
+- Attempt a best-effort stop on shutdown, input loss, route change, and reply
+  timeout. Never claim that a local attempt guarantees a remote stop.
+- Avoid blocking the main event loop. UART receive, input scans, display updates,
+  and timers must advance independently.
+- Use a hardware watchdog in the final HAL only after its recovery/startup
+  behavior has been tested.
+- Recover from input loss only after a valid neutral sample. Recover from a
+  transport fault through an explicit reset/reinitialization path.
 
-## Out of scope for V1
+## Display information
 
-- Autonomous speaker tracking.
-- AI camera directing.
-- Automatic live video switching.
-- Large touchscreen interface.
-- Cloud services.
-- Replacing the PTR-10/T motors or motor drivers.
-- Recreating every feature of the RMC-180.
+The future HMI must define component names/IDs for:
 
-## Definition of done
+- selected logical camera and physical-route state;
+- slow/medium/fast profile;
+- ready, input-lost, transport-fault, and shutting-down states;
+- unknown, waiting, acknowledged, online, timed-out, and protocol-error status;
+- autofocus/manual-focus and capability-unavailable indicators;
+- settings for calibration, dead zones, direction reversal, and speed limits;
+- diagnostic counters and a concise last-error message.
 
-V1 is complete when the controller can reliably select a camera, pan/tilt, stop, control supported zoom, adjust speed, recall named presets, provide clear operator feedback, and successfully operate at least one church PTR-10/T during a controlled test.
+No `.HMI` project or final component-ID table was found, so screen graphics and
+page behavior are blocked. The testable serial protocol layer is implemented.
+
+## Definition of software-ready for first bench test
+
+- exact installed PTR model/mode and VISCA serial settings confirmed;
+- one RS-422 channel pinout and electrical interface reviewed and continuity
+  tested with power removed;
+- W55RP20 pin/resource allocation proven under load;
+- production transport/HAL implemented and its loopback tests pass;
+- input calibration and neutral timeout pass on physical controls;
+- low-speed move and stop packets rechecked against the exact Datavideo manual;
+- an independent emergency power/control procedure and RMC fallback are ready;
+- test is supervised on one disconnected/non-production head.

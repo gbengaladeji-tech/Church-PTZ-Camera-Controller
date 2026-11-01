@@ -1,125 +1,118 @@
 # Church PTZ Camera Controller
 
-**Project started:** 2026-08-23 02:55 UTC  
-**Status:** Planning and software prototyping  
-**Target:** A practical PTZ camera-control system for my church media team
+An open, student-engineered camera controller for church volunteers, inspired
+by the workflow of the Datavideo RMC-180 MARK II. The goal is a clear physical
+console for selecting cameras, moving pan/tilt/zoom, recalling shots, and
+showing useful status without asking an operator to understand hexadecimal or
+serial protocols.
 
-## About This Project
+Gbenga began this project in Grade 12 with a Python VISCA packet generator. The
+repository now preserves that learning history and adds a testable C++ firmware
+core for the planned WIZnet W55RP20-EVB-PICO.
 
-I am an aspiring engineering student with hands-on experience operating robotic camera systems for church productions. After spending time working with robotic camera controllers, I became interested in understanding how the systems work beyond simply operating them.
+> **Current status:** the firmware core compiles and passes host-side automated
+> tests. It has not been compiled with the RP2040 toolchain or connected to a
+> camera. RS-422 wiring, serial resources, voltage interfaces, pin allocation,
+> and target-camera capabilities still require bench verification. This is not
+> production-ready camera-control hardware.
 
-I decided to design and build my own PTZ camera-control system around the real needs of my church's media team. The project combines embedded electronics, software, communication protocols, control systems, CAD, user-interface design, testing, and documentation into one system intended for real use.
+## Planned system
 
-The goal is not to make a simple copy of an existing commercial controller. I want to study the current workflow, identify where it can be made easier for volunteers, and develop a controller that is intuitive, reliable, maintainable, and expandable.
+- WIZnet W55RP20-EVB-PICO controller
+- ServoCity 605616 three-axis joystick for pan, tilt, and twist zoom
+- Nextion NX4024T032_011 touchscreen
+- 28 Omron B3F-4050 switches with B32-1310 caps
+- three Bourns PEC11R encoders for focus, iris, and menus
+- 13 separate red 3 mm status LEDs
+- four full-duplex RS-422 camera ports using non-magnetic Amphenol RJHSE5080
+  8P8C connectors
+- approximately 400 × 230 mm sloped enclosure
 
-## Existing Church System
+Ten camera positions exist on the front-panel concept, but only four physical
+RS-422 ports are planned. The software therefore routes logical camera numbers
+through a configurable table. The safe default enables CAM 1–4 and rejects CAM
+5–10. It does not pretend that ten physical ports exist.
 
-Initial investigation identified:
-
-- Datavideo RMC-180 MARK II camera controller
-- Datavideo PTR-10/T MARK II robotic pan/tilt heads
-- Panasonic professional 4K camcorders
-- RS-422 communication on the robotic-head system
-- Sony VISCA-based control as a key protocol to investigate
-
-The PTR-10/T hardware already performs the physical pan/tilt movement. This project will therefore focus on safely communicating with the existing system rather than attempting to directly replace or drive its motors.
-
-## Version 1 Goals
-
-V1 is intentionally limited. It is complete when the controller can reliably:
-
-1. Select between multiple cameras.
-2. Pan and tilt using a physical joystick.
-3. Control zoom.
-4. Adjust movement speed.
-5. Recall clearly named shot presets.
-6. Stop commanded movement safely.
-7. Provide obvious feedback about which camera is selected.
-8. Operate through a usable physical control surface.
-9. Communicate successfully with at least one church PTR-10/T system.
-10. Be documented well enough that another person can understand the design and testing process.
-
-## Demo Target
-
-The first prototype does not need to look like the final product. It should prove the control architecture:
-
-```text
-Physical controls
-      |
-      v
-Arduino / input device
-      |
-      v
-Computer running control software
-      |
-      v
-VISCA command layer
-      |
-      v
-Simulation first, then RS-422 hardware
-      |
-      v
-Datavideo PTR-10/T MARK II
+```mermaid
+flowchart LR
+    Controls[Joystick, 28 buttons, 3 encoders] --> Inputs[Input processing]
+    Inputs --> State[Safety and controller state]
+    State --> Router[Logical camera router]
+    Router --> VISCA[VISCA packet encoder]
+    VISCA --> Transport[RS-422 transport abstraction]
+    Transport --> Ports[Four proposed camera ports]
+    State --> Display[Nextion protocol layer]
+    State --> LEDs[13 status LEDs]
 ```
 
-The simulation stage will let the software, commands, presets, input handling, and safety logic be tested before connecting anything to church production equipment.
+## What works in software
 
-## Planned Operator Controls
+- joystick calibration, filtering, curves, reversal, dead zones, and immediate
+  neutral behavior;
+- button press/release debounce and quadrature encoder direction;
+- slow/medium/fast motion profiles and variable joystick zoom;
+- safe startup that requires neutral before accepting movement;
+- stop-on-neutral, input timeout, shutdown stop, and transport fault states;
+- configurable logical-camera-to-port/address routing;
+- VISCA pan/tilt, zoom, presets, focus, iris, and white-balance packet builders;
+- capability gates that keep unverified camera functions disabled;
+- VISCA ACK, completion, and error response parsing;
+- Nextion command framing and touch-event parsing without invented HMI IDs;
+- 13-output default LED state model; and
+- a warning-clean C++17 host build with 114 core checks.
 
-- Pan/tilt joystick
-- Zoom control
-- Four camera-selection buttons
-- Named preset buttons such as Pulpit, Altar, Choir, and Wide
-- Movement-speed control
-- Movement enable/disable control
-- Stop control
-- Status display in later versions
+## Quick start
 
-## Repository Structure
+Run the new firmware-core tests:
 
-```text
-.
-├── README.md
-├── docs/
-│   ├── PROJECT_LOG.md
-│   ├── REQUIREMENTS.md
-│   ├── SYSTEM_ARCHITECTURE.md
-│   ├── HARDWARE.md
-│   ├── SAFETY.md
-│   └── TESTING.md
-├── software/
-│   ├── main.py
-│   └── ptz/
-│       ├── __init__.py
-│       ├── commands.py
-│       └── transport.py
-├── firmware/
-├── cad/
-├── images/
-└── prototypes/
+```bash
+make -C firmware test
 ```
 
-## Engineering Approach
+Run the existing Python learning tests:
 
-This project will be developed in small, testable stages:
+```bash
+PYTHONPATH=software python3 -m unittest discover -s software/tests -v
+PYTHONPATH=software python3 software/test_controller.py
+```
 
-1. Document the existing system and requirements.
-2. Learn the required VISCA command structure.
-3. Build and test software command generation without real hardware.
-4. Build a simulated transport layer.
-5. Add physical input controls.
-6. Add an appropriate RS-422 interface.
-7. Perform a controlled test with one PTR-10/T.
-8. Add presets and multi-camera logic.
-9. Design the final operator interface and enclosure.
-10. Test reliability and document the final deployment.
+The Pico SDK build is described in [Testing](docs/TESTING.md), but requires a
+verified W55RP20 board definition, CMake, the Pico SDK, and an Arm compiler.
 
-## Why I Am Building It
+## Repository map
 
-This is intended to solve a real problem rather than exist only as a demonstration. Church media systems are often operated by volunteers with different levels of experience. Clear camera selection, named shot presets, intuitive physical controls, and strong feedback can make the system easier to learn and reduce mistakes during live production.
+| Path | Purpose |
+|---|---|
+| `firmware/` | New C++ core, host tests, and safe commissioning build |
+| `software/controller_v1.py` | Preserved newest VS Code-history prototype |
+| `software/` | Python learning, simulations, Xbox, and Arduino input tools |
+| `docs/` | Requirements, hardware, architecture, protocol, tests, and teaching guide |
+| `cad/`, `images/`, `prototypes/` | Existing project workspaces |
 
-The project also gives me a way to learn engineering through a real system with real users, existing hardware constraints, a limited budget, and a requirement for reliability.
+Start with [Software Architecture](docs/SOFTWARE_ARCHITECTURE.md), then read
+[Wiring](docs/WIRING.md) before making any electrical connection. The
+[Remaining Work](docs/REMAINING_WORK.md) checklist is the practical continuation
+plan.
 
-## Project Documentation
+## Safety boundary
 
-Major design decisions, failures, experiments, tests, changes, and milestones will be recorded in `docs/PROJECT_LOG.md`. The goal is to preserve the engineering process, not just the final result.
+An 8P8C/RJ45-shaped camera connector is not automatically Ethernet. Do not
+connect this controller to installed church equipment until the head model,
+operating mode, baud rate, pinout, polarity, common/reference conductor,
+termination, bias, protection, and command set are checked on a disconnected
+bench setup. Keep the original RMC-180 available as the fallback controller.
+
+## Documentation
+
+- [Hardware](docs/HARDWARE.md)
+- [Software architecture](docs/SOFTWARE_ARCHITECTURE.md)
+- [Controls](docs/CONTROLS.md)
+- [Wiring and interface status](docs/WIRING.md)
+- [Protocol](docs/PROTOCOL.md)
+- [Testing](docs/TESTING.md)
+- [Decisions](docs/DECISIONS.md)
+- [Development log](docs/DEVLOG.md)
+- [Learning guide](docs/LEARNING_GUIDE.md)
+- [Remaining work](docs/REMAINING_WORK.md)
+- [Original software assessment](docs/ORIGINAL_SOFTWARE_ASSESSMENT.md)
+- [Reference review](docs/REFERENCE_REVIEW.md)

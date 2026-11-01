@@ -1,21 +1,20 @@
-# Safety and Deployment Rules
+# Safety and deployment rules
 
-This controller will eventually interact with powered robotic camera equipment used during live church production. Development must therefore be conservative.
-
-## Rules
-
-- Do not climb, open, disconnect, or modify installed church equipment without proper authorization and safe access.
-- Do not connect experimental hardware directly to the production system until signal type, pinout, voltage levels, and protocol are verified.
-- Treat RS-422/RJ-45 camera-control connections as dedicated control wiring, not ordinary Ethernet.
-- Perform initial development with simulation.
-- Perform the first real-hardware test with one camera/head only and with production use paused.
-- Begin real-hardware tests at low movement speed.
-- Keep an immediate stop command available.
-- Make movement disabled by default on software startup.
-- Stop movement if the input device disconnects or communication becomes invalid.
-- Avoid sending unverified commands to live equipment.
-- Keep all modifications reversible during testing.
-
-## Deployment goal
-
-The donated/final controller should use secure connectors, strain relief, clear labels, a closed enclosure, replaceable cables, and documented wiring. Prototype breadboards and loose wiring are not suitable for permanent church deployment.
+- Keep simulation and loopback as the default development modes.
+- Do not connect an unverified 8P8C cable or transceiver to church equipment.
+- Confirm exact pinout, polarity, voltage, termination, bias, reference, and
+  protocol with power removed and an independently reviewed diagram.
+- First motion testing uses one authorized non-production head, minimum speed,
+  an observer, clear mechanical area, immediate fallback, and the original
+  controller available.
+- Startup requires neutral. Invalid/stale input, route changes, shutdown, and
+  reply timeout attempt stop.
+- A software stop attempt is not a guaranteed remote stop. Loss of power or a
+  broken cable may leave the remote system in its last commanded state.
+- Use certified low-voltage power, current limiting during bench work, fusing,
+  reverse/backfeed protection, strain relief, closed insulation, and documented
+  chassis/ground strategy.
+- Never use a breadboard, loose wiring, or an unreviewed commissioning image in
+  regular church production.
+- Preserve logs and stop testing at the first unexplained movement, hot part,
+  wrong voltage, communication error, or damaged data.

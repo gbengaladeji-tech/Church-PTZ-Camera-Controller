@@ -1,5 +1,10 @@
 # Engineering Project Log
 
+> Historical learning log for the August 2026 Python prototype. Current hardware
+> and firmware decisions are in `DEVLOG.md`, `DECISIONS.md`, and
+> `SOFTWARE_ARCHITECTURE.md`; later explicit requirements supersede old counts
+> and deployment ideas below.
+
 This file records the engineering process: observations, assumptions, decisions, experiments, failures, test results, revisions, and next steps.
 
 ---

@@ -1,0 +1,24 @@
+name: Software tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build and test firmware core
+        run: make -C firmware test
+
+      - name: Run Python unittest suite
+        run: PYTHONPATH=software python3 -m unittest discover -s software/tests -v
+
+      - name: Run original controller assertions
+        run: PYTHONPATH=software python3 software/test_controller.py
