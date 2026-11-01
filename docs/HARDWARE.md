@@ -4,6 +4,11 @@ This document distinguishes selected parts from electrically verified parts.
 Nothing listed as planned or proposed should be treated as installed or safe to
 connect.
 
+Earlier repository milestones identify an RMC-180 MARK II, PTR-10/T MARK II
+heads, and Panasonic AG-CX350 cameras in the church system. The exact installed
+models, firmware, operating mode, and cable wiring must still be physically
+reconfirmed before this controller is connected.
+
 ## Current owner-selected baseline
 
 | Item | Planned part | Role | Verification state |

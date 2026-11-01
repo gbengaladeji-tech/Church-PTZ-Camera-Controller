@@ -72,6 +72,21 @@ The future HMI must define component names/IDs for:
 No `.HMI` project or final component-ID table was found, so screen graphics and
 page behavior are blocked. The testable serial protocol layer is implemented.
 
+## Product and scope requirements
+
+- Keep the four RS-422 camera connectors physically and visibly distinct from
+  the W55RP20 Ethernet connector and label all rear ports clearly.
+- Make the finished enclosure closed, strain-relieved, serviceable, and based on
+  measured in-hand parts rather than concept dimensions.
+- Keep CAM 5–10 disabled until a specific network protocol/profile and target
+  have passed the same staged tests as a wired route.
+- Preserve an immediate operator stop/recovery procedure and the original RMC
+  controller as fallback during commissioning.
+- Keep autonomous tracking, AI directing, automatic live switching, cloud
+  services, and replacement of PTR motor electronics outside V1 scope.
+- Document failures, test conditions, revisions, and operator feedback, not only
+  successful demonstrations.
+
 ## Definition of software-ready for first bench test
 
 - exact installed PTR model/mode and VISCA serial settings confirmed;

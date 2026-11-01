@@ -94,6 +94,21 @@ Start with [Software Architecture](docs/SOFTWARE_ARCHITECTURE.md), then read
 [Remaining Work](docs/REMAINING_WORK.md) checklist is the practical continuation
 plan.
 
+## Earlier milestones and project support
+
+The newer remote history is preserved in this branch, including the
+[August software-to-hardware milestone](docs/MILESTONE_2026-08-26.md),
+[September hybrid-architecture milestone](docs/MILESTONE_2026-09-22.md),
+[build/documentation plan](docs/BUILD_AND_DOCUMENTATION_PLAN.md), and
+[CAD/control-panel plan](docs/CAD_AND_PANEL_DESIGN.md). Those records explain
+how the design reached the current W55RP20 baseline; later explicit decisions in
+this README and `docs/DECISIONS.md` take precedence where counts or parts differ.
+
+[Confirmed public project support](docs/SPONSORSHIP_AND_SUPPORT.md) is recorded
+separately from unconfirmed outreach. OSH Cut has confirmed eligible fabrication
+support; private codes and account-specific terms are intentionally excluded
+from the repository.
+
 ## Safety boundary
 
 An 8P8C/RJ45-shaped camera connector is not automatically Ethernet. Do not
@@ -116,3 +131,5 @@ bench setup. Keep the original RMC-180 available as the fallback controller.
 - [Remaining work](docs/REMAINING_WORK.md)
 - [Original software assessment](docs/ORIGINAL_SOFTWARE_ASSESSMENT.md)
 - [Reference review](docs/REFERENCE_REVIEW.md)
+- [Historical milestones](docs/MILESTONE_2026-09-22.md)
+- [Sponsorship and project support](docs/SPONSORSHIP_AND_SUPPORT.md)

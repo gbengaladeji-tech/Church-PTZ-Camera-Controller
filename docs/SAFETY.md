@@ -1,6 +1,9 @@
 # Safety and deployment rules
 
 - Keep simulation and loopback as the default development modes.
+- Do not climb, open, disconnect, or modify installed church equipment without
+  authorization, safe access, and another responsible person present where
+  appropriate.
 - Do not connect an unverified 8P8C cable or transceiver to church equipment.
 - Confirm exact pinout, polarity, voltage, termination, bias, reference, and
   protocol with power removed and an independently reviewed diagram.
@@ -16,5 +19,9 @@
   chassis/ground strategy.
 - Never use a breadboard, loose wiring, or an unreviewed commissioning image in
   regular church production.
+- Clearly label RS-422 camera ports so they cannot be mistaken for the Ethernet
+  connector. Selecting unmapped CAM 5–10 must never transmit arbitrary traffic.
+- Do not claim DVIP/IP compatibility because an Ethernet connector exists; test
+  a specific protocol and target first.
 - Preserve logs and stop testing at the first unexplained movement, hot part,
   wrong voltage, communication error, or damaged data.
