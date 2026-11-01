@@ -185,6 +185,14 @@ bool Controller::safe_stop(Milliseconds now) {
             return false;
         }
     }
+    if (focus_pulse_active_) {
+        attempted = true;
+        const auto packet = visca::focus_drive(route.visca_address, visca::FocusDrive::Stop);
+        if (!packet || send_packet(route, *packet, now) != CommandResult::Sent) {
+            return false;
+        }
+        focus_pulse_active_ = false;
+    }
     motion_ = {};
     if (attempted) {
         ++diagnostics_.safety_stops;
@@ -205,6 +213,9 @@ CommandResult Controller::select_camera(std::uint8_t logical_camera, Millisecond
         return CommandResult::TransportError;
     }
     selected_camera_ = logical_camera;
+    // Treat the new camera's focus state as unknown/safe-to-command. The first
+    // manual focus step will explicitly request manual mode.
+    autofocus_enabled_ = true;
     communication_status_ = CommunicationStatus::Unknown;
     response_pending_ = false;
     return CommandResult::NoChange;
@@ -420,6 +431,7 @@ void Controller::tick(Milliseconds now) {
 
 void Controller::shutdown(Milliseconds now) {
     safe_stop(now);
+    store_held_ = false;
     state_ = ControllerState::ShuttingDown;
 }
 

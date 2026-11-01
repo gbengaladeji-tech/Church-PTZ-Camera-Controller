@@ -320,10 +320,13 @@ void test_controller_errors_responses_and_lens() {
     lens_controller.apply_joystick({0.0F, 0.0F, 0.0F, true}, 1);
     CHECK(lens_controller.focus_step(1, 10) == ptz::CommandResult::Sent);
     CHECK(lens_transport.sent.size() == 2U);  // manual mode, then focus drive
-    lens_controller.tick(90);
+    CHECK(lens_controller.apply_joystick({0.0F, 0.0F, 0.0F, false}, 20) ==
+          ptz::CommandResult::Disabled);
     CHECK(lens_transport.sent.size() == 3U);
     CHECK(bytes_equal(lens_transport.sent.back().packet,
                       {0x81, 0x01, 0x04, 0x08, 0x00, 0xFF}));
+    CHECK(lens_controller.apply_joystick({0.0F, 0.0F, 0.0F, true}, 21) ==
+          ptz::CommandResult::NoChange);
     CHECK(lens_controller.iris_step(-1, 91) == ptz::CommandResult::Sent);
     CHECK(lens_controller.set_white_balance(ptz::visca::WhiteBalanceMode::Auto, 92) ==
           ptz::CommandResult::Sent);
