@@ -11,7 +11,9 @@ Use the [WIZnet board-specific MicroPython builds](https://github.com/Wiznet/RP2
 | PIO SM0/1 GP2/GP3 | CAM2 TX/RX |
 | PIO SM2/3 GP6/GP7 | CAM3 TX/RX |
 | PIO SM4/5 GP8/GP9 | CAM4 TX/RX |
-| GP10–15 | CLOCK, LOAD_N, INPUT_DATA, LED_DATA, LED_LATCH, RS_ENABLE |
+| GP10–15 | SHIFT_CLK, LOAD_N, INPUT_DATA, LED_DATA, LED_LATCH, RS_ENABLE |
 | GP26/27/28 | Pan, tilt, twist analog inputs |
 
 Run host tests with `python3 -m unittest -v test_core` in this directory. Run the target only with its independent camera and LAN cables disconnected. With an isolated dummy wired and checked, `target.loopback(1, "ISOLATED_DUMMY_ONLY")` expects one local echo on port 1. The `38400` default is for the dummy, and requires matching settings at both ends. Run `target.diagnostics(30)` for contacts and raw ADC. For calibrated local intent supply three measured normalized (minimum, neutral, maximum) tuples as `calibration=`. Test data are illustrative. Repeated use of USB REPL Ctrl-D resets the MCU and the target; power cycling AUX separately is required to test hardware LED power-on blanking.
+
+The one-key bench harness can use `target.diagnostics(30, pilot=True)`. The flag reads one eight-bit input stage, forces the remaining logical contacts idle and limits lamp display to CAM1. The wiring and qualification order are in the package assembly guide.

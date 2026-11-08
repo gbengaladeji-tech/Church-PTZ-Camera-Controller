@@ -67,12 +67,12 @@ class Target:
     def safe(self):
         self.enable(0)
 
-    def scan(self):
+    def scan(self, bits=48):
         self.load(0)
         time.sleep_us(2)
         self.load(1)
-        word=0
-        for bit in range(48):
+        word=((1<<48)-1) ^ ((1<<bits)-1)
+        for bit in range(bits):
             word |= self.keydata() << bit
             self.clock(1)
             self.clock(0)
@@ -121,7 +121,7 @@ class Target:
         finally:
             self.safe()
 
-    def diagnostics(self, seconds=15, display_enabled=False, calibration=None):
+    def diagnostics(self, seconds=15, display_enabled=False, calibration=None, pilot=False):
         self.safe()
         controls=Controls()
         operator=Operator()
@@ -130,14 +130,14 @@ class Target:
         try:
             while time.ticks_diff(end,time.ticks_ms())>0:
                 now=time.ticks_diff(time.ticks_ms(),origin)
-                keys,turns=controls.sample(self.scan(),now)
+                keys,turns=controls.sample(self.scan(8 if pilot else 48),now)
                 actions = operator.keypress(keys) + operator.turn(turns)
                 raw = [a.read_u16() for a in self.axes]
                 if calibration is not None:
                     actions += operator.motion([v/65535 for v in raw],calibration,now)
                 if keys or any(turns) or actions:
                     print(now,keys,turns,raw,operator.fault,"LOCAL INTENT",actions)
-                    self.lamps(lamp_word((operator.selected,operator.speed)))
+                    self.lamps(lamp_word((operator.selected,) if pilot else (operator.selected,operator.speed)))
 
                     if display_enabled:
                         msg='t0.txt="%s"'%(operator.selected or "DIAGNOSTIC")
