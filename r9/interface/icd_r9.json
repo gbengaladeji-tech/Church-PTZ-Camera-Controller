@@ -1,0 +1,721 @@
+{
+  "revision": "R9.0-INTEGRATION-CANDIDATE",
+  "units": "mm",
+  "source_origin": "Outer front-left top, X right, S rearward along 10-degree slope, N outward normal",
+  "width": 400.0,
+  "slope_length": 230.0,
+  "slope_deg": 10.0,
+  "front_z": 55.0,
+  "floor_depth": 226.505783,
+  "metal_t": 1.6256,
+  "key_board_top_n": -8.6256,
+  "main_board_top_z": 19.2256,
+  "rear_jacks": [
+    {
+      "id": "JCAM1",
+      "x": 60,
+      "z": 25.8296
+    },
+    {
+      "id": "JCAM2",
+      "x": 95,
+      "z": 25.8296
+    },
+    {
+      "id": "JCAM3",
+      "x": 130,
+      "z": 25.8296
+    },
+    {
+      "id": "JCAM4",
+      "x": 165,
+      "z": 25.8296
+    }
+  ],
+  "rear_ethernet": {
+    "x": 205,
+    "z": 25.8296,
+    "status": "PLACEHOLDER: module port fit"
+  },
+  "rear_dc": {
+    "x": 260,
+    "z": 27,
+    "status": "PLACEHOLDER: mated jack fit"
+  },
+  "boards": {
+    "KEY-L": {
+      "origin": [
+        18,
+        15.1628
+      ],
+      "width": 162,
+      "depth": 109,
+      "holes": [
+        [
+          4,
+          4
+        ],
+        [
+          158,
+          4
+        ],
+        [
+          4,
+          55
+        ],
+        [
+          158,
+          55
+        ],
+        [
+          4,
+          102
+        ],
+        [
+          158,
+          102
+        ]
+      ],
+      "plane": "PANEL",
+      "thickness": 1.6
+    },
+    "KEY-R": {
+      "origin": [
+        182,
+        15.1628
+      ],
+      "width": 196,
+      "depth": 100,
+      "holes": [
+        [
+          4,
+          4
+        ],
+        [
+          192,
+          4
+        ],
+        [
+          4,
+          79
+        ],
+        [
+          98,
+          79
+        ],
+        [
+          192,
+          79
+        ]
+      ],
+      "plane": "PANEL",
+      "thickness": 1.6
+    },
+    "MAIN": {
+      "origin": [
+        30,
+        136.5
+      ],
+      "width": 200,
+      "depth": 88,
+      "holes": [
+        [
+          5,
+          6
+        ],
+        [
+          82.5,
+          6
+        ],
+        [
+          193,
+          6
+        ],
+        [
+          5,
+          83.5
+        ],
+        [
+          82.5,
+          83.5
+        ],
+        [
+          193,
+          83.5
+        ]
+      ],
+      "plane": "FLOOR",
+      "thickness": 1.6
+    }
+  },
+  "gpio": {
+    "cam1_tx": {
+      "gpio": 0,
+      "header_pin": 1,
+      "net": "CAM1_TX"
+    },
+    "cam1_rx": {
+      "gpio": 1,
+      "header_pin": 2,
+      "net": "CAM1_RX"
+    },
+    "cam2_tx": {
+      "gpio": 2,
+      "header_pin": 4,
+      "net": "CAM2_TX"
+    },
+    "cam2_rx": {
+      "gpio": 3,
+      "header_pin": 5,
+      "net": "CAM2_RX"
+    },
+    "display_tx": {
+      "gpio": 4,
+      "header_pin": 6,
+      "net": "DISPLAY_TX"
+    },
+    "display_rx": {
+      "gpio": 5,
+      "header_pin": 7,
+      "net": "DISPLAY_RX"
+    },
+    "cam3_tx": {
+      "gpio": 6,
+      "header_pin": 9,
+      "net": "CAM3_TX"
+    },
+    "cam3_rx": {
+      "gpio": 7,
+      "header_pin": 10,
+      "net": "CAM3_RX"
+    },
+    "cam4_tx": {
+      "gpio": 8,
+      "header_pin": 11,
+      "net": "CAM4_TX"
+    },
+    "cam4_rx": {
+      "gpio": 9,
+      "header_pin": 12,
+      "net": "CAM4_RX"
+    },
+    "clock": {
+      "gpio": 10,
+      "header_pin": 14,
+      "net": "SHIFT_CLK"
+    },
+    "load_n": {
+      "gpio": 11,
+      "header_pin": 15,
+      "net": "LOAD_N"
+    },
+    "input_data": {
+      "gpio": 12,
+      "header_pin": 16,
+      "net": "INPUT_DATA"
+    },
+    "led_data": {
+      "gpio": 13,
+      "header_pin": 17,
+      "net": "LED_DATA"
+    },
+    "led_latch": {
+      "gpio": 14,
+      "header_pin": 19,
+      "net": "LED_LATCH"
+    },
+    "rs_enable": {
+      "gpio": 15,
+      "header_pin": 20,
+      "net": "RS_ENABLE"
+    },
+    "pan_adc": {
+      "gpio": 26,
+      "header_pin": 31,
+      "net": "PAN_ADC"
+    },
+    "tilt_adc": {
+      "gpio": 27,
+      "header_pin": 32,
+      "net": "TILT_ADC"
+    },
+    "zoom_adc": {
+      "gpio": 28,
+      "header_pin": 34,
+      "net": "ZOOM_ADC"
+    }
+  },
+  "input_bits": [
+    "CAM1",
+    "CAM2",
+    "CAM3",
+    "CAM4",
+    "CAM5",
+    "CAM6",
+    "CAM7",
+    "CAM8",
+    "CAM9",
+    "CAM10",
+    "SLOW",
+    "MIDDLE",
+    "FAST",
+    "FOCUS_A",
+    "FOCUS_B",
+    "IRIS_A",
+    "IRIS_B",
+    "AUTO_FOCUS",
+    "AUTO_IRIS",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "PRESET1",
+    "PRESET2",
+    "PRESET3",
+    "PRESET4",
+    "PRESET5",
+    "PRESET6",
+    "PRESET7",
+    "PRESET8",
+    "PRESET9",
+    "PRESET10",
+    "PRESET11",
+    "PRESET12",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "STORE",
+    "MENU_A",
+    "MENU_B",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH",
+    "SPARE_TIE_HIGH"
+  ],
+  "led_bits": [
+    "CAM1",
+    "CAM2",
+    "CAM3",
+    "CAM4",
+    "CAM5",
+    "CAM6",
+    "CAM7",
+    "CAM8",
+    "CAM9",
+    "CAM10",
+    "SLOW",
+    "MIDDLE",
+    "FAST",
+    "AUTO_FOCUS",
+    "AUTO_IRIS",
+    "UNUSED_OFF",
+    "PRESET1",
+    "PRESET2",
+    "PRESET3",
+    "PRESET4",
+    "PRESET5",
+    "PRESET6",
+    "PRESET7",
+    "PRESET8",
+    "PRESET9",
+    "PRESET10",
+    "PRESET11",
+    "PRESET12",
+    "UNUSED_OFF",
+    "UNUSED_OFF",
+    "UNUSED_OFF",
+    "UNUSED_OFF"
+  ],
+  "controls": [
+    {
+      "id": "CAM1",
+      "x": 42,
+      "s": 25.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM2",
+      "x": 64,
+      "s": 25.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM3",
+      "x": 86,
+      "s": 25.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM4",
+      "x": 108,
+      "s": 25.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM5",
+      "x": 130,
+      "s": 25.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM6",
+      "x": 42,
+      "s": 47.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM7",
+      "x": 64,
+      "s": 47.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM8",
+      "x": 86,
+      "s": 47.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM9",
+      "x": 108,
+      "s": 47.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "CAM10",
+      "x": 130,
+      "s": 47.7134,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET1",
+      "x": 252,
+      "s": 25.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET2",
+      "x": 288,
+      "s": 25.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET3",
+      "x": 324,
+      "s": 25.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET4",
+      "x": 360,
+      "s": 25.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET5",
+      "x": 252,
+      "s": 51.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET6",
+      "x": 288,
+      "s": 51.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET7",
+      "x": 324,
+      "s": 51.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET8",
+      "x": 360,
+      "s": 51.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET9",
+      "x": 252,
+      "s": 77.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET10",
+      "x": 288,
+      "s": 77.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET11",
+      "x": 324,
+      "s": 77.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "PRESET12",
+      "x": 360,
+      "s": 77.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "SLOW",
+      "x": 114.325,
+      "s": 87.8178,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "MIDDLE",
+      "x": 139.325,
+      "s": 87.8178,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "FAST",
+      "x": 164.325,
+      "s": 87.8178,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "AUTO_FOCUS",
+      "x": 26.25,
+      "s": 101.2538,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "AUTO_IRIS",
+      "x": 76.25,
+      "s": 101.2538,
+      "board": "KEY-L",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "STORE",
+      "x": 194.196,
+      "s": 51.7134,
+      "board": "KEY-R",
+      "kind": "key",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "ENC_FOCUS",
+      "x": 26.25,
+      "s": 134.7134,
+      "board": "KEY-L",
+      "kind": "panel",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "ENC_IRIS",
+      "x": 76.25,
+      "s": 134.7134,
+      "board": "KEY-L",
+      "kind": "panel",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "ENC_MENU",
+      "x": 171.4864,
+      "s": 183.9737,
+      "board": "KEY-R",
+      "kind": "panel",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "DISPLAY",
+      "x": 95,
+      "s": 184.7134,
+      "board": "MAIN",
+      "kind": "panel",
+      "position_source": "R8 feature centre, label assignment candidate",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    },
+    {
+      "id": "JOY",
+      "x": 312,
+      "s": 162.1628,
+      "board": "MAIN",
+      "kind": "panel",
+      "position_source": "R9 placement PLACEHOLDER",
+      "aperture_status": "PLACEHOLDER: DO NOT FABRICATE"
+    }
+  ],
+  "connectors": {
+    "JKEYL": [
+      "PROT5",
+      "AUX3V3",
+      "GND",
+      "SHIFT_CLK",
+      "LOAD_N",
+      "LED_LATCH",
+      "GND",
+      "LED_DATA",
+      "LED_L2R",
+      "INPUT_DATA",
+      "INPUT_R2L",
+      null
+    ],
+    "JKEYR": [
+      "PROT5",
+      "AUX3V3",
+      "GND",
+      "SHIFT_CLK",
+      "LOAD_N",
+      "LED_LATCH",
+      "GND",
+      "LED_L2R",
+      "INPUT_R2L",
+      null
+    ],
+    "JJOY": [
+      "JOY_X_HI",
+      "JOY_X_RAW",
+      "JOY_X_LO",
+      "JOY_Y_HI",
+      "JOY_Y_RAW",
+      "JOY_Y_LO",
+      "JOY_Z_HI",
+      "JOY_Z_RAW",
+      "JOY_Z_LO",
+      null
+    ],
+    "JLCD": [
+      "LCD5",
+      "GND",
+      "LCD_RX",
+      "LCD_TX"
+    ],
+    "JDC": [
+      "DC5_RAW",
+      "GND"
+    ],
+    "JCAM1": [
+      "GND",
+      null,
+      "CAM1_TX_N",
+      "CAM1_RX_N",
+      "CAM1_RX_P",
+      "CAM1_TX_P",
+      null,
+      null
+    ],
+    "JCAM2": [
+      "GND",
+      null,
+      "CAM2_TX_N",
+      "CAM2_RX_N",
+      "CAM2_RX_P",
+      "CAM2_TX_P",
+      null,
+      null
+    ],
+    "JCAM3": [
+      "GND",
+      null,
+      "CAM3_TX_N",
+      "CAM3_RX_N",
+      "CAM3_RX_P",
+      "CAM3_TX_P",
+      null,
+      null
+    ],
+    "JCAM4": [
+      "GND",
+      null,
+      "CAM4_TX_N",
+      "CAM4_RX_N",
+      "CAM4_RX_P",
+      "CAM4_TX_P",
+      null,
+      null
+    ]
+  }
+}
