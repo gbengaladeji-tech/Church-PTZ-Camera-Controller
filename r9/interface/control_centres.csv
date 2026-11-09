@@ -1,0 +1,34 @@
+id,x,s,board,kind,position_source,aperture_status
+CAM1,42,25.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM2,64,25.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM3,86,25.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM4,108,25.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM5,130,25.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM6,42,47.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM7,64,47.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM8,86,47.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM9,108,47.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+CAM10,130,47.7134,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET1,252,25.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET2,288,25.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET3,324,25.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET4,360,25.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET5,252,51.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET6,288,51.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET7,324,51.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET8,360,51.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET9,252,77.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET10,288,77.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET11,324,77.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+PRESET12,360,77.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+SLOW,114.325,87.8178,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+MIDDLE,139.325,87.8178,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+FAST,164.325,87.8178,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+AUTO_FOCUS,26.25,101.2538,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+AUTO_IRIS,76.25,101.2538,KEY-L,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+STORE,194.196,51.7134,KEY-R,key,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+ENC_FOCUS,26.25,134.7134,KEY-L,panel,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+ENC_IRIS,76.25,134.7134,KEY-L,panel,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+ENC_MENU,171.4864,183.9737,KEY-R,panel,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+DISPLAY,95,184.7134,MAIN,panel,"R8 feature centre, label assignment candidate",PLACEHOLDER: DO NOT FABRICATE
+JOY,312,162.1628,MAIN,panel,R9 placement PLACEHOLDER,PLACEHOLDER: DO NOT FABRICATE
