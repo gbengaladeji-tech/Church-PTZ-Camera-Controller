@@ -1,5 +1,5 @@
 """Safety state for logged camera intents. This module owns no device I/O."""
-from core import CAMERAS, Controls, Operator, axis_value
+from core import CAMERAS, KEY_MASK, Controls, Operator, axis_value
 from pins import CHAIN_HIGH, CHAIN_LOW
 
 
@@ -17,10 +17,12 @@ class Session:
         self.last_preset = '-'
 
     def trip(self, detail):
+        self.neutral_since = None
+        self.startup_samples = 0
+        self.input = Controls()
         if detail == self.fault:
             return []
         self.fault = detail
-        self.neutral_since = None
         self.last_preset = '-'
         return self.operator.trip(detail)
 
@@ -41,7 +43,7 @@ class Session:
         except (TypeError,ValueError):
             return self.trip('CALIBRATION / AXIS INVALID')
         self.startup_samples += 1
-        if any(axes_scaled):
+        if any(axes_scaled) or self.input.raw & KEY_MASK:
             self.neutral_since=None
         elif self.neutral_since is None:
             self.neutral_since=now
@@ -61,6 +63,8 @@ class Session:
         if self.operator.fault and self.operator.fault!='SELECTED; ARM AT NEUTRAL':
             self.fault=self.operator.fault
             self.neutral_since=None
+            self.startup_samples=0
+            self.input=Controls()
             return result
         result += self.operator.turn(turns)
         result += self.operator.motion(axes,self.cal,now)

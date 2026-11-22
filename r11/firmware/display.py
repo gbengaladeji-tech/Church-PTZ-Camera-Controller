@@ -46,7 +46,7 @@ class Display:
             return b'sendme'+END
         fields=((('camera',camera or 'NONE'),('speed',speed),('state',fault or ('LOCAL ARMED' if armed else 'WAIT NEUTRAL')),
                  ('preset',preset),('link',link)) if self.current_page==0 else
-                (('build','R11 BENCH'),('error',fault or 'NO LOCAL FAULT'),('uart',str(self.display_errors))))
+                (('build','R11.1 BENCH'),('error',fault or 'NO LOCAL FAULT'),('uart',str(self.display_errors))))
         if fields==self.previous:
             return b''
         self.previous=fields

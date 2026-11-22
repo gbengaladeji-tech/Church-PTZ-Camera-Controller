@@ -1,6 +1,8 @@
 {
-  "project": "Church PTZ R11 status display",
+  "project": "Church PTZ R11.1 status display",
   "candidate_model": "NX4024T032_011R",
+  "model_status": "Owner label pending. Compile only after exact model confirmation.",
+  "text_max_length": 32,
   "resolution": [400, 240],
   "connection": {"uart": 1, "baud": 9600, "bits": 8, "parity": "none", "stop_bits": 1},
   "pages": [
@@ -13,7 +15,7 @@
       {"name":"bdiag","type":"button","xywh":[258,194,126,36],"initial":"Diagnostics","release":["page diag"]}
     ]},
     {"id": 1, "name": "diag", "postinitialize": ["sendme"], "components": [
-      {"name":"build","type":"text","xywh":[16,18,368,44],"initial":"R11 BENCH"},
+      {"name":"build","type":"text","xywh":[16,18,368,44],"initial":"R11.1 BENCH"},
       {"name":"error","type":"text","xywh":[16,71,368,41],"initial":"Waiting for host"},
       {"name":"uart","type":"text","xywh":[16,124,368,39],"initial":"0"},
       {"name":"bhome","type":"button","xywh":[16,188,132,38],"initial":"Home","release":["page home"]}

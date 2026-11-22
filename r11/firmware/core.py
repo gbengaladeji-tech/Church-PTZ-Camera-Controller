@@ -4,6 +4,9 @@ from pins import INPUT
 STOP = ("PAN_TILT_STOP", "ZOOM_STOP", "FOCUS_STOP")
 CAMERAS = tuple("CAM%d" % n for n in range(1, 5))
 SPEEDS = ("SLOW","MIDDLE","FAST")
+KEY_MASK = sum(1 << i for i, name in enumerate(INPUT)
+               if name != "SPARE_TIE_HIGH" and not name.endswith(("_A", "_B")))
+DEADBAND = 0.035
 
 class Controls:
     def __init__(self, debounce_ms=10):
@@ -55,12 +58,13 @@ class Controls:
 
 def axis_value(sample, cal):
     low, middle, high = cal
-    if not (0.08 < low < middle < high < 0.92):
+    if not (0.08 < low < middle < high < 0.92
+            and min(middle-low, high-middle) > DEADBAND):
         raise ValueError("Invalid calibration; measure endpoints and neutral")
     if not 0.055 <= sample <= 0.945:
         raise ValueError("ADC outside wiring envelope")
     delta = sample-middle
-    if abs(delta) <= 0.035:
+    if abs(delta) <= DEADBAND:
         return 0.0
     scale = high-middle if delta>0 else middle-low
     return max(-1.0,min(1.0,delta/scale))

@@ -7,3 +7,10 @@
 5. Save the native `.HMI` in the revision folder. Compile the matching `.TFT` after suffix confirmation. Verify cable pin order and steady/startup supply at the LCD before loading a unit. Confirm state, camera, speed, diagnostic error and page transitions on bench. The preset field can show local selection, which is separate from camera confirmation.
 
 The JSON and `firmware/display.py` are the reproducible R11 source. Native Editor compilation and physical tests remain open. [Nextion instruction and response reference](https://nextion.ca/nis/).
+
+## R11.1 simulator checklist
+
+- Set page orientation to 400 × 240 landscape. Generate and import a Latin font, assign it to each component, and use text length 32. Use software UART terminal hex mode for the byte tests.
+- Set `bkcmd=3` during a debug-only session to capture status frames. An update should show camera and speed on page 0, and `R11.1 BENCH` on page 1. Do not use display acknowledgements as camera status. Input touch frames have no host action.
+- After visiting Diagnostics and returning Home, verify the page number response and resend of Home fields. Simulate a display reboot, then verify that the host polls for the page and refreshes the state. Verify the fault text fits using the chosen font.
+- Record the owner label, editor version, exact device selected, native file hashes, and simulator result before attaching any compiled files. The current R11.1 package contains the JSON specification and host parser. No physical display result is recorded.
