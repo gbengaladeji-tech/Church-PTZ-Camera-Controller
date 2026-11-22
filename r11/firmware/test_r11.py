@@ -80,6 +80,12 @@ class BenchSafety(unittest.TestCase):
         self.assertTrue(s.step(word('CAM7'),NEUTRAL,1122))
         self.assertEqual(s.fault,'IP CAMERA UNAVAILABLE')
 
+    def test_preset_display_is_local(self):
+        s=self.select()
+        s.step(word('PRESET4'),NEUTRAL,1110)
+        self.assertIn(('CAM1',('PRESET_RECALL',4)),s.step(word('PRESET4'),NEUTRAL,1122))
+        self.assertEqual(s.last_preset,'RECALL 4 LOCAL')
+
 
 class UI(unittest.TestCase):
     def test_on_reset_and_fragmented_page(self):
