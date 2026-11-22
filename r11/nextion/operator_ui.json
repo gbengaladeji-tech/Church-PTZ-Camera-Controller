@@ -1,0 +1,22 @@
+{
+  "project": "Church PTZ R11 status display",
+  "candidate_model": "NX4024T032_011R",
+  "resolution": [400, 240],
+  "connection": {"uart": 1, "baud": 9600, "bits": 8, "parity": "none", "stop_bits": 1},
+  "pages": [
+    {"id": 0, "name": "home", "postinitialize": ["sendme"], "components": [
+      {"name":"camera","type":"text","xywh":[16,18,368,46],"initial":"NONE"},
+      {"name":"speed","type":"text","xywh":[16,69,177,37],"initial":"SLOW"},
+      {"name":"preset","type":"text","xywh":[207,69,177,37],"initial":"-"},
+      {"name":"state","type":"text","xywh":[16,115,368,38],"initial":"POWER-UP LOCK"},
+      {"name":"link","type":"text","xywh":[16,158,368,31],"initial":"BENCH ONLY"},
+      {"name":"bdiag","type":"button","xywh":[258,194,126,36],"initial":"Diagnostics","release":["page diag"]}
+    ]},
+    {"id": 1, "name": "diag", "postinitialize": ["sendme"], "components": [
+      {"name":"build","type":"text","xywh":[16,18,368,44],"initial":"R11 BENCH"},
+      {"name":"error","type":"text","xywh":[16,71,368,41],"initial":"Waiting for host"},
+      {"name":"uart","type":"text","xywh":[16,124,368,39],"initial":"0"},
+      {"name":"bhome","type":"button","xywh":[16,188,132,38],"initial":"Home","release":["page home"]}
+    ]}
+  ]
+}
