@@ -14,12 +14,14 @@ class Session:
         self.neutral_since = None
         self.fault = 'POWER-UP LOCK'
         self.startup_samples = 0
+        self.last_preset = '-'
 
     def trip(self, detail):
         if detail == self.fault:
             return []
         self.fault = detail
         self.neutral_since = None
+        self.last_preset = '-'
         return self.operator.trip(detail)
 
     def step(self, word, axes, now, *, acknowledge=False, link_fault=False):
@@ -52,11 +54,17 @@ class Session:
             return []
         if not self.operator.armed and any(axes_scaled) and any(k in CAMERAS for k in keys):
             return self.trip('CENTER STICK BEFORE SELECT')
+        old_camera=self.operator.selected
         result=self.operator.keypress(keys)
+        if self.operator.selected != old_camera:
+            self.last_preset='-'
         if self.operator.fault and self.operator.fault!='SELECTED; ARM AT NEUTRAL':
             self.fault=self.operator.fault
             self.neutral_since=None
             return result
         result += self.operator.turn(turns)
         result += self.operator.motion(axes,self.cal,now)
+        for _,intent in result:
+            if isinstance(intent,tuple) and intent[0] in ('PRESET_STORE','PRESET_RECALL'):
+                self.last_preset=('%s %d LOCAL' % ('SET' if intent[0]=='PRESET_STORE' else 'RECALL',intent[1]))
         return result
