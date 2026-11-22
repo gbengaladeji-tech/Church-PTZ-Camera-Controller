@@ -41,7 +41,7 @@ def diagnostics(seconds=15, calibration=None, *, display_enabled=False, acknowle
                 last_status=status
             if uart:
                 screen.receive(uart.read() or b'')
-                packet=screen.update(elapsed,status[1],status[2],status[0],status[3])
+                packet=screen.update(elapsed,status[1],status[2],status[0],status[3],preset=state.last_preset)
                 if packet:
                     uart.write(packet)
             time.sleep_ms(2)
